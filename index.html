@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Chandan Communication | Guwahati's Best Mobile Repair</title>
+    <title>Chandan Communications1 | Guwahati's Best Mobile Repair</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     
@@ -83,11 +83,12 @@
                     </button>
                 </div>
             </div>
+
             <div class="mt-8 mb-4 hover:scale-105 transition-transform duration-300">
                 <img src="offer.jpg" alt="Special Offer" class="w-full rounded-2xl shadow-xl border-4 border-accent">
             </div>
 
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
                 <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100 text-center flex flex-col items-center">
                     <span class="material-symbols-outlined text-4xl text-green-500 mb-2">verified</span>
                     <h3 class="font-bold text-sm">100% Original</h3>
@@ -177,7 +178,6 @@
                         <p class="text-xs text-slate-500">4G & 5G SIM Cards, Fancy Numbers & Porting</p>
                     </div>
                 </div>
-            
 
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                     <div onclick="openSimModal('Jio')" class="bg-white p-4 rounded-xl shadow border border-slate-100 hover:border-blue-500 cursor-pointer flex flex-col items-center text-center transition-all h-32 relative overflow-hidden">
@@ -405,6 +405,7 @@
             </div>
         </div>
     </div>
+
     <div id="loginOverlay" class="hidden fixed inset-0 z-[99999] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
         <div class="bg-white w-full max-w-sm rounded-3xl p-6 shadow-2xl animate-[fadeIn_0.3s_ease-out]">
             <div class="flex justify-between items-center mb-6">
@@ -485,7 +486,6 @@
     <button onclick="openAdminPrompt()" style="position: fixed; bottom: 85px; left: 20px; background: rgba(30, 58, 138, 0.7); color: white; border: none; width: 45px; height: 45px; border-radius: 50%; z-index: 9998; cursor: pointer; font-size: 10px; font-weight: bold; backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">Admin</button>
 
     <script>
-        // --- EXISTING WEBSITE LOGIC ---
         const phoneDb = {
             "Apple": ["iPhone 17 Pro Max", "iPhone 17 Pro", "iPhone 17", "iPhone 16 Pro Max", "iPhone 16 Pro", "iPhone 15 Series", "iPhone 14 Series", "iPhone 13 Series"],
             "Samsung": ["Galaxy S26 Ultra", "Galaxy S26", "Galaxy S25 Ultra", "Galaxy S24 Ultra", "Galaxy Z Fold 7", "Galaxy Z Flip 7", "Galaxy A56 5G", "Galaxy A55"],
@@ -635,7 +635,7 @@
             }
         }
 
-        // --- NEW FIREBASE CLOUD DATABASE LOGIC ---
+        // --- FIREBASE CLOUD DATABASE LOGIC ---
         const firebaseConfig = {
             apiKey: "AIzaSyDB9c9FF_rLhnzY3mbxrh6eBzNrXjuIEZ8",
             authDomain: "chandan-communication-3e18f.firebaseapp.com",
@@ -646,14 +646,12 @@
             databaseURL: "https://chandan-communication-3e18f-default-rtdb.firebaseio.com"
         };
 
-        // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
 
         let adminDb = [];
         let isAdminOpen = false;
 
-        // Firebase Realtime Listener
         database.ref('chandan_stock_db').on('value', (snapshot) => {
             const data = snapshot.val();
             adminDb = data ? Object.keys(data).map(key => ({...data[key], id: key})) : [];
@@ -664,7 +662,8 @@
             }
         });
 
-                function openAdminPrompt() {
+        // --- NEW ADMIN LOGIN LOGIC ---
+        function openAdminPrompt() {
             document.getElementById('loginOverlay').classList.remove('hidden');
             document.getElementById('loginError').classList.add('hidden');
             document.getElementById('adminUser').value = '';
@@ -679,7 +678,6 @@
             let u = document.getElementById('adminUser').value;
             let p = document.getElementById('adminPass').value;
             
-            // Yahan tumhara naya Username aur Password set hai
             if(u === "Chandancommunication" && p === "Mobile@2002") {
                 isAdminOpen = true;
                 closeLogin();
@@ -687,9 +685,6 @@
                 adminUpdateUI();
             } else {
                 document.getElementById('loginError').classList.remove('hidden');
-            }
-        }
-
             }
         }
 
