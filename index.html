@@ -405,6 +405,33 @@
             </div>
         </div>
     </div>
+    <div id="loginOverlay" class="hidden fixed inset-0 z-[99999] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
+        <div class="bg-white w-full max-w-sm rounded-3xl p-6 shadow-2xl animate-[fadeIn_0.3s_ease-out]">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-extrabold text-brand flex items-center gap-2">
+                    <span class="material-symbols-outlined text-3xl">admin_panel_settings</span> Admin Login
+                </h3>
+                <button onclick="closeLogin()" class="bg-slate-100 p-2 rounded-full hover:bg-red-100 hover:text-red-500 transition">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-500 mb-1">Username</label>
+                    <input type="text" id="adminUser" class="w-full bg-slate-50 border border-slate-200 rounded-lg p-3 text-sm focus:border-brand focus:outline-none" placeholder="Enter username">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-500 mb-1">Password</label>
+                    <input type="password" id="adminPass" class="w-full bg-slate-50 border border-slate-200 rounded-lg p-3 text-sm focus:border-brand focus:outline-none" placeholder="Enter password">
+                </div>
+                <button onclick="verifyAdminLogin()" class="w-full bg-brand text-white font-bold rounded-xl py-4 mt-4 shadow-lg hover:bg-blue-900 active:scale-95 transition-transform flex justify-center items-center gap-2 text-lg">
+                    <span class="material-symbols-outlined">login</span> Secure Login
+                </button>
+                <p id="loginError" class="text-red-500 text-xs font-bold text-center hidden mt-2">Bhai, Username ya Password galat hai!</p>
+            </div>
+        </div>
+    </div>
 
     <div id="adminPanelOverlay">
         <div style="max-w: 800px; margin: 0 auto; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.2);">
@@ -637,14 +664,32 @@
             }
         });
 
-        function openAdminPrompt() {
-            let pass = prompt("Enter Admin Password :");
-            if (pass === "2002") {
+                function openAdminPrompt() {
+            document.getElementById('loginOverlay').classList.remove('hidden');
+            document.getElementById('loginError').classList.add('hidden');
+            document.getElementById('adminUser').value = '';
+            document.getElementById('adminPass').value = '';
+        }
+
+        function closeLogin() {
+            document.getElementById('loginOverlay').classList.add('hidden');
+        }
+
+        function verifyAdminLogin() {
+            let u = document.getElementById('adminUser').value;
+            let p = document.getElementById('adminPass').value;
+            
+            // Yahan tumhara naya Username aur Password set hai
+            if(u === "Chandancommunication" && p === "Mobile@2002") {
                 isAdminOpen = true;
+                closeLogin();
                 document.getElementById('adminPanelOverlay').classList.add('admin-active');
                 adminUpdateUI();
-            } else if (pass !== null) {
-                alert("Wrong Password! Access Denied.");
+            } else {
+                document.getElementById('loginError').classList.remove('hidden');
+            }
+        }
+
             }
         }
 
