@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Chandan Communication | Guwahati's Best Mobile Repair</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-database-compat.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Poppins', 'sans-serif'] },
+                    colors: {
+                        brand: '#1e3a8a', // Deep Blue
+                        accent: '#f97316' // Orange
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { font-family: 'Poppins', sans-serif; background-color: #f3f4f6; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 1; }
+        .page-view { display: none; animation: fadeIn 0.4s ease-in-out; }
+        .page-view.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        /* Admin Stock Panel Styles */
+        #adminPanelOverlay { display: none; position: fixed; inset: 0; background: #f3f4f6; z-index: 999999; overflow-y: auto; padding: 20px; font-family: Arial, sans-serif; }
+        .admin-active { display: block !important; }
+        .low-stock-alert { background: #fee2e2 !important; border: 1px solid #ef4444 !important; }
+    </style>
+</head>
+<body class="text-slate-800 pb-24">
+
+    <nav class="fixed top-0 w-full bg-white shadow-md z-50">
+        <div class="max-w-5xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center gap-2 cursor-pointer" onclick="showPage('homePage')">
+                <img src="https://cdn-icons-png.flaticon.com/512/7783/7783193.png" alt="Logo" class="w-10 h-10">
+                <span class="font-bold text-xl text-brand tracking-tight">Chandan Comm.</span>
+            </div>
+            <div class="hidden md:flex gap-6 font-semibold text-sm text-slate-600">
+                <button onclick="showPage('homePage')" class="hover:text-brand transition">Home</button>
+                <button onclick="scrollToSection('brandsSection')" class="hover:text-brand transition">Repair</button>
+                <button onclick="scrollToSection('simSection')" class="hover:text-brand transition">SIM & VIP</button>
+                <button onclick="scrollToSection('contactSection')" class="hover:text-brand transition">Contact Us</button>
+            </div>
+            <a href="tel:+919395323010" class="bg-green-500 text-white p-2 rounded-full shadow-md flex items-center md:hidden">
+                <span class="material-symbols-outlined text-xl">call</span>
+            </a>
+            <a href="tel:+919395323010" class="hidden md:flex bg-brand text-white px-4 py-2 rounded-lg font-semibold shadow hover:bg-blue-900 transition items-center gap-2">
+                <span class="material-symbols-outlined">call</span> 9395323010
+            </a>
+        </div>
+    </nav>
+
+    <main class="pt-20 max-w-5xl mx-auto px-4">
+
+        <div id="homePage" class="page-view active">
+            
+            <div class="relative bg-slate-900 rounded-2xl overflow-hidden shadow-lg mt-2 h-[300px] md:h-[400px]">
+                <img src="https://images.unsplash.com/photo-1597740985671-2a8a3b80502e?q=80&w=1000&auto=format&fit=crop" class="w-full h-full object-cover opacity-50" alt="Mobile Repair Shop">
+                <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-6">
+                    <div class="bg-accent text-white px-3 py-1 rounded-full text-[10px] md:text-xs font-bold uppercase tracking-widest mb-4">Estd. Expert Service</div>
+                    <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-2 tracking-tight drop-shadow-md">
+                        Chandan Communication
+                    </h1>
+                    <p class="text-blue-100 text-sm md:text-lg font-medium mb-6 max-w-lg drop-shadow">
+                        Guwahati's No. 1 Trusted Mobile Repair Destination & VIP Number Store. 
+                    </p>
+                    <button onclick="scrollToSection('brandsSection')" class="bg-white text-brand font-bold py-3 px-8 rounded-full shadow-xl hover:scale-105 transition-transform flex items-center gap-2">
+                        <span class="material-symbols-outlined">build</span> Select Your Phone
+                    </button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100 text-center flex flex-col items-center">
+                    <span class="material-symbols-outlined text-4xl text-green-500 mb-2">verified</span>
+                    <h3 class="font-bold text-sm">100% Original</h3>
+                    <p class="text-[10px] text-slate-500">Genuine High-Quality Parts</p>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100 text-center flex flex-col items-center">
+                    <span class="material-symbols-outlined text-4xl text-blue-500 mb-2">bolt</span>
+                    <h3 class="font-bold text-sm">Fast Repair</h3>
+                    <p class="text-[10px] text-slate-500">Same day delivery possible</p>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100 text-center flex flex-col items-center">
+                    <span class="material-symbols-outlined text-4xl text-orange-500 mb-2">stars</span>
+                    <h3 class="font-bold text-sm">VIP Numbers</h3>
+                    <p class="text-[10px] text-slate-500">Fancy Numbers Available</p>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100 text-center flex flex-col items-center">
+                    <span class="material-symbols-outlined text-4xl text-red-500 mb-2">support_agent</span>
+                    <h3 class="font-bold text-sm">Expert Staff</h3>
+                    <p class="text-[10px] text-slate-500">Experienced technicians</p>
+                </div>
+            </div>
+
+            <div id="brandsSection" class="mt-10 pt-4">
+                <div class="flex justify-between items-end mb-4 border-l-4 border-brand pl-3">
+                    <div>
+                        <h2 class="text-2xl font-extrabold text-slate-900">Select Brand to Repair</h2>
+                        <p class="text-xs text-slate-500">All 2026 Latest & Old Models Available</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+                    <div onclick="openModels('Apple')" class="bg-white p-4 rounded-xl shadow border border-transparent hover:border-brand cursor-pointer flex flex-col items-center justify-center transition-all h-28">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" class="w-10 h-10 object-contain mb-2 opacity-80" onerror="this.style.display='none'">
+                        <span class="font-bold text-xs uppercase mt-1">Apple</span>
+                    </div>
+                    <div onclick="openModels('Samsung')" class="bg-white p-4 rounded-xl shadow border border-transparent hover:border-brand cursor-pointer flex flex-col items-center justify-center transition-all h-28">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/2/24/Samsung_Logo.svg" class="w-16 h-8 object-contain mb-2" onerror="this.style.display='none'">
+                        <span class="font-bold text-xs uppercase mt-1">Samsung</span>
+                    </div>
+                    <div onclick="openModels('Vivo')" class="bg-white p-4 rounded-xl shadow border border-transparent hover:border-brand cursor-pointer flex flex-col items-center justify-center transition-all h-28">
+                        <div class="font-black text-blue-800 text-lg mb-2">vivo</div>
+                        <span class="font-bold text-xs uppercase">Vivo</span>
+                    </div>
+                    <div onclick="openModels('Oppo')" class="bg-white p-4 rounded-xl shadow border border-transparent hover:border-brand cursor-pointer flex flex-col items-center justify-center transition-all h-28">
+                        <div class="font-black text-green-600 text-lg mb-2">oppo</div>
+                        <span class="font-bold text-xs uppercase">Oppo</span>
+                    </div>
+                    <div onclick="openModels('Xiaomi')" class="bg-white p-4 rounded-xl shadow border border-transparent hover:border-brand cursor-pointer flex flex-col items-center justify-center transition-all h-28">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/2/29/Xiaomi_logo.svg" class="w-8 h-8 object-contain mb-2" onerror="this.style.display='none'">
+                        <span class="font-bold text-xs uppercase mt-1">Xiaomi/Mi</span>
+                    </div>
+                    <div onclick="openModels('OnePlus')" class="bg-white p-4 rounded-xl shadow border border-transparent hover:border-brand cursor-pointer flex flex-col items-center justify-center transition-all h-28">
+                        <div class="font-bold text-red-600 text-[10px] mb-2 border border-red-600 px-1">1+ ONEPLUS</div>
+                        <span class="font-bold text-xs uppercase">OnePlus</span>
+                    </div>
+                    <div onclick="openModels('Realme')" class="bg-white p-4 rounded-xl shadow border border-transparent hover:border-brand cursor-pointer flex flex-col items-center justify-center transition-all h-28">
+                        <div class="font-bold text-black bg-yellow-400 px-2 py-0.5 rounded text-[10px] mb-2">realme</div>
+                        <span class="font-bold text-xs uppercase">Realme</span>
+                    </div>
+                    <div onclick="openModels('Motorola')" class="bg-white p-4 rounded-xl shadow border border-transparent hover:border-brand cursor-pointer flex flex-col items-center justify-center transition-all h-28">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Motorola_logo.svg" class="w-8 h-8 object-contain mb-2" onerror="this.style.display='none'">
+                        <span class="font-bold text-xs uppercase mt-1">Motorola</span>
+                    </div>
+                    <div onclick="openModels('iQOO')" class="bg-white p-4 rounded-xl shadow border border-transparent hover:border-brand cursor-pointer flex flex-col items-center justify-center transition-all h-28">
+                        <div class="font-black text-blue-900 text-sm mb-2 italic">iQOO</div>
+                        <span class="font-bold text-xs uppercase">iQOO</span>
+                    </div>
+                    <div onclick="openModels('Poco')" class="bg-white p-4 rounded-xl shadow border border-transparent hover:border-brand cursor-pointer flex flex-col items-center justify-center transition-all h-28">
+                        <div class="font-black text-black bg-yellow-400 px-1 text-[11px] mb-2">POCO</div>
+                        <span class="font-bold text-xs uppercase">Poco</span>
+                    </div>
+                    <div onclick="openModels('Google')" class="bg-white p-4 rounded-xl shadow border border-transparent hover:border-brand cursor-pointer flex flex-col items-center justify-center transition-all h-28">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" class="w-8 h-8 object-contain mb-2" onerror="this.style.display='none'">
+                        <span class="font-bold text-xs uppercase mt-1">Google Pixel</span>
+                    </div>
+                    <div onclick="openModels('Nothing')" class="bg-white p-4 rounded-xl shadow border border-transparent hover:border-brand cursor-pointer flex flex-col items-center justify-center transition-all h-28">
+                        <div class="font-serif font-black text-black text-[10px] tracking-widest mb-2">NOTHING</div>
+                        <span class="font-bold text-xs uppercase">Nothing</span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="simSection" class="mt-12 pt-4">
+                <div class="flex justify-between items-end mb-4 border-l-4 border-red-500 pl-3">
+                    <div>
+                        <h2 class="text-2xl font-extrabold text-slate-900">Buy New SIM & VIP Numbers</h2>
+                        <p class="text-xs text-slate-500">4G & 5G SIM Cards, Fancy Numbers & Porting</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div onclick="openSimModal('Jio')" class="bg-white p-4 rounded-xl shadow border border-slate-100 hover:border-blue-500 cursor-pointer flex flex-col items-center text-center transition-all h-32 relative overflow-hidden">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/5/5cb/Jio_Logo.svg" class="w-14 h-14 object-contain mb-2" onerror="this.style.display='none'">
+                        <span class="font-bold text-sm text-slate-800">Jio 4G/5G</span>
+                        <span class="absolute top-0 right-0 bg-red-500 text-white text-[9px] font-bold px-2 py-1 rounded-bl-lg">VIP Available</span>
+                    </div>
+                    <div onclick="openSimModal('Airtel')" class="bg-white p-4 rounded-xl shadow border border-slate-100 hover:border-red-500 cursor-pointer flex flex-col items-center text-center transition-all h-32">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/f/fb/Airtel_logo_2010.svg" class="w-14 h-14 object-contain mb-2" onerror="this.style.display='none'">
+                        <span class="font-bold text-sm text-slate-800">Airtel 4G/5G</span>
+                    </div>
+                    <div onclick="openSimModal('Vi')" class="bg-white p-4 rounded-xl shadow border border-slate-100 hover:border-red-600 cursor-pointer flex flex-col items-center text-center transition-all h-32">
+                        <div class="w-14 h-14 bg-red-600 text-white font-extrabold text-2xl flex items-center justify-center rounded-full mb-2">V!</div>
+                        <span class="font-bold text-sm text-slate-800">Vi (Vodafone Idea)</span>
+                    </div>
+                    <div onclick="openSimModal('BSNL')" class="bg-white p-4 rounded-xl shadow border border-slate-100 hover:border-blue-600 cursor-pointer flex flex-col items-center text-center transition-all h-32">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/d/d4/BSNL_logo.svg" class="w-14 h-14 object-contain mb-2" onerror="this.style.display='none'">
+                        <span class="font-bold text-sm text-slate-800">BSNL 4G</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-12">
+                <h2 class="text-2xl font-extrabold text-slate-900 mb-4 border-l-4 border-brand pl-3">Our Premium Services</h2>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100 text-center flex flex-col items-center">
+                        <span class="material-symbols-outlined text-4xl text-blue-600 mb-2">broken_image</span>
+                        <h3 class="font-bold text-sm">Screen Replacement</h3>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100 text-center flex flex-col items-center">
+                        <span class="material-symbols-outlined text-4xl text-green-600 mb-2">battery_charging_full</span>
+                        <h3 class="font-bold text-sm">Battery Replacement</h3>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100 text-center flex flex-col items-center">
+                        <span class="material-symbols-outlined text-4xl text-orange-500 mb-2">memory</span>
+                        <h3 class="font-bold text-sm">Motherboard Repair</h3>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100 text-center flex flex-col items-center">
+                        <span class="material-symbols-outlined text-4xl text-cyan-500 mb-2">water_drop</span>
+                        <h3 class="font-bold text-sm">Water Damage</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div id="contactSection" class="mt-12 bg-white p-6 rounded-2xl shadow-sm border border-slate-200 mb-10">
+                <h2 class="text-2xl font-bold text-brand mb-4 border-b pb-2 flex items-center gap-2">
+                    <span class="material-symbols-outlined">storefront</span> Visit Our Shop
+                </h2>
+                <div class="flex flex-col md:flex-row gap-6">
+                    <div class="flex-1 space-y-4">
+                        <div class="flex items-start gap-3">
+                            <span class="material-symbols-outlined text-accent mt-1">location_on</span>
+                            <p class="text-sm font-medium leading-relaxed">
+                                <strong class="text-lg text-slate-800 block mb-1">BHARGAV INN</strong>
+                                Vaishali Complex, Assam Trunk Rd,<br>
+                                PWD Colony, Paltan Bazaar,<br>
+                                Guwahati, Assam 781008
+                            </p>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-green-500">call</span>
+                            <a href="tel:+919395323010" class="text-lg font-bold hover:text-brand">+91 9395323010</a>
+                        </div>
+                    </div>
+                    <div class="flex-1 flex flex-col gap-3 justify-center">
+                        <a href="https://maps.app.goo.gl/VFHKurWGpu3odbA6A" target="_blank" class="bg-brand text-white font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 hover:bg-blue-900 shadow">
+                            <span class="material-symbols-outlined">directions</span> Open in Maps
+                        </a>
+                        <a href="https://wa.me/919395323010" target="_blank" class="bg-green-500 text-white font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 hover:bg-green-600 shadow">
+                            <span class="material-symbols-outlined">chat</span> Chat on WhatsApp
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+        <div id="modelsPage" class="page-view">
+            <div class="flex items-center gap-4 mb-6">
+                <button onclick="showPage('homePage')" class="bg-white shadow p-2 rounded-full hover:bg-slate-100">
+                    <span class="material-symbols-outlined">arrow_back</span>
+                </button>
+                <div>
+                    <h2 class="text-2xl font-extrabold text-slate-900"><span id="displayBrandName">Brand</span> Models</h2>
+                    <p class="text-xs text-slate-500">Select your device from our complete catalogue</p>
+                </div>
+            </div>
+
+            <div class="relative mb-6">
+                <span class="absolute inset-y-0 left-4 flex items-center material-symbols-outlined text-slate-400">search</span>
+                <input type="text" id="modelSearchBox" onkeyup="filterModels()" placeholder="Search your phone model..." class="w-full pl-12 pr-4 py-4 rounded-full border border-slate-200 shadow-inner focus:outline-none focus:border-brand font-medium">
+            </div>
+
+            <div id="modelsGridContainer" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            </div>
+        </div>
+
+    </main>
+
+    <nav class="md:hidden fixed bottom-0 w-full bg-white border-t border-slate-200 flex justify-around p-2 z-40 pb-4">
+        <button onclick="showPage('homePage')" class="flex flex-col items-center text-slate-500 hover:text-brand">
+            <span class="material-symbols-outlined mb-1">home</span>
+            <span class="text-[10px] font-bold">Home</span>
+        </button>
+        <button onclick="scrollToSection('brandsSection')" class="flex flex-col items-center text-slate-500 hover:text-brand">
+            <span class="material-symbols-outlined mb-1">build</span>
+            <span class="text-[10px] font-bold">Repair</span>
+        </button>
+        <button onclick="scrollToSection('simSection')" class="flex flex-col items-center text-brand">
+            <span class="material-symbols-outlined mb-1">sim_card</span>
+            <span class="text-[10px] font-bold">Buy SIM</span>
+        </button>
+        <button onclick="scrollToSection('contactSection')" class="flex flex-col items-center text-slate-500 hover:text-brand">
+            <span class="material-symbols-outlined mb-1">storefront</span>
+            <span class="text-[10px] font-bold">Contact</span>
+        </button>
+    </nav>
+
+    <a href="https://wa.me/919395323010" target="_blank" class="fixed bottom-20 right-4 bg-green-500 text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-transform z-50 flex items-center justify-center">
+        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+    </a>
+
+    <div id="bookingModal" class="hidden fixed inset-0 z-[100] flex items-end md:items-center justify-center bg-black/70 backdrop-blur-sm">
+        <div class="bg-white w-full max-w-lg rounded-t-3xl md:rounded-3xl p-6 shadow-2xl animate-[fadeIn_0.3s_ease-out] max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-2xl font-bold text-brand">Book Repair</h3>
+                <button onclick="closeModal('bookingModal')" class="bg-slate-100 p-2 rounded-full hover:bg-red-100 hover:text-red-500 transition">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            
+            <div class="bg-blue-50 border border-blue-100 p-3 rounded-xl mb-4 flex items-center gap-3">
+                <span class="material-symbols-outlined text-blue-500 text-3xl">build_circle</span>
+                <div>
+                    <p class="text-[10px] text-blue-600 font-bold uppercase">Device to Repair</p>
+                    <p id="modalDeviceText" class="font-bold text-slate-800 text-sm">Brand - Model</p>
+                </div>
+            </div>
+
+            <form id="bookingForm" class="space-y-3">
+                <div id="manualModelContainer" class="hidden bg-slate-100 p-3 rounded-xl border border-slate-300">
+                    <label class="block text-xs font-bold text-brand mb-1">Enter Your Phone Model <span class="text-red-500">*</span></label>
+                    <input type="text" id="manualModelInput" class="w-full bg-white border border-slate-300 rounded-lg p-2 text-sm focus:border-brand focus:outline-none" placeholder="E.g. Galaxy M12, iPhone 7 Plus...">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-500 mb-1">Your Name</label>
+                    <input type="text" id="custName" required class="w-full bg-slate-50 border border-slate-200 rounded-lg p-3 text-sm focus:border-brand focus:outline-none" placeholder="Enter full name">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-500 mb-1">What's the issue?</label>
+                    <textarea id="issueInput" required rows="2" class="w-full bg-slate-50 border border-slate-200 rounded-lg p-3 text-sm focus:border-brand focus:outline-none" placeholder="E.g. Display broken, Battery fast drain..."></textarea>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-500 mb-1">Expected Visit Date</label>
+                    <input type="date" id="dateInput" required class="w-full bg-slate-50 border border-slate-200 rounded-lg p-3 text-sm focus:border-brand focus:outline-none">
+                </div>
+                <button type="submit" class="w-full bg-brand text-white font-bold rounded-xl py-4 mt-2 shadow-lg hover:bg-blue-900 active:scale-95 transition-transform flex justify-center items-center gap-2">
+                    <span class="material-symbols-outlined">send</span> Send Request to Shop
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div id="simModal" class="hidden fixed inset-0 z-[110] flex items-end md:items-center justify-center bg-black/70 backdrop-blur-sm">
+        <div class="bg-white w-full max-w-md rounded-t-3xl md:rounded-3xl p-6 shadow-2xl animate-[fadeIn_0.3s_ease-out]">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold text-brand flex items-center gap-2">
+                    <span class="material-symbols-outlined text-3xl">sim_card</span> New Connection
+                </h3>
+                <button onclick="closeModal('simModal')" class="bg-slate-100 p-2 rounded-full hover:bg-red-100 hover:text-red-500 transition">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            
+            <p class="text-center font-bold text-lg mb-4 text-slate-800">You selected: <span id="selectedSimBrand" class="text-brand">Jio</span></p>
+
+            <label class="block text-xs font-bold text-slate-500 mb-2 uppercase tracking-wider">Select Network Speed</label>
+            <div class="grid grid-cols-2 gap-3 mb-5">
+                <label class="cursor-pointer">
+                    <input type="radio" name="simNet" value="4G" class="peer sr-only" checked onchange="updateSimAction()">
+                    <div class="text-center p-3 rounded-xl border-2 border-slate-200 peer-checked:bg-blue-50 peer-checked:border-brand peer-checked:text-brand font-bold transition">4G Network</div>
+                </label>
+                <label class="cursor-pointer">
+                    <input type="radio" name="simNet" value="5G" class="peer sr-only" onchange="updateSimAction()">
+                    <div class="text-center p-3 rounded-xl border-2 border-slate-200 peer-checked:bg-blue-50 peer-checked:border-brand peer-checked:text-brand font-bold transition">5G Ultra Fast</div>
+                </label>
+            </div>
+
+            <label class="block text-xs font-bold text-slate-500 mb-2 uppercase tracking-wider">Select Number Type</label>
+            <div class="grid grid-cols-2 gap-3 mb-6">
+                <label class="cursor-pointer">
+                    <input type="radio" name="simType" value="Normal" class="peer sr-only" checked onchange="updateSimAction()">
+                    <div class="text-center p-3 rounded-xl border-2 border-slate-200 peer-checked:bg-orange-50 peer-checked:border-accent peer-checked:text-accent font-bold transition">Regular SIM</div>
+                </label>
+                <label class="cursor-pointer relative">
+                    <input type="radio" name="simType" value="VIP" class="peer sr-only" onchange="updateSimAction()">
+                    <div class="text-center p-3 rounded-xl border-2 border-slate-200 peer-checked:bg-orange-50 peer-checked:border-accent peer-checked:text-accent font-bold transition">VIP / Fancy</div>
+                </label>
+            </div>
+
+            <button id="simActionButton" onclick="executeSimAction()" class="w-full bg-brand text-white font-bold rounded-xl py-4 shadow-lg hover:bg-blue-900 active:scale-95 transition-transform flex justify-center items-center gap-2 text-lg">
+                <span class="material-symbols-outlined">storefront</span> Visit Store to Buy
+            </button>
+        </div>
+    </div>
+
+    <div id="visitStoreModal" class="hidden fixed inset-0 z-[120] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
+        <div class="bg-white w-full max-w-sm rounded-3xl p-6 shadow-2xl text-center animate-[fadeIn_0.3s_ease-out]">
+            <div class="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span class="material-symbols-outlined text-4xl">storefront</span>
+            </div>
+            <h3 class="text-2xl font-extrabold text-slate-800 mb-2">Visit Our Shop</h3>
+            <p class="text-sm text-slate-600 mb-6 font-medium">To collect your new SIM card and do the KYC, please visit us at:</p>
+            
+            <div class="bg-slate-50 p-4 rounded-xl text-left border border-slate-200 mb-6">
+                <strong class="text-brand text-lg block mb-1">BHARGAV INN</strong>
+                <p class="text-xs text-slate-600 leading-relaxed">Vaishali Complex, Assam Trunk Rd,<br>PWD Colony, Paltan Bazaar,<br>Guwahati, Assam 781008</p>
+            </div>
+
+            <div class="flex gap-3">
+                <button onclick="closeModal('visitStoreModal')" class="flex-1 bg-slate-200 text-slate-700 font-bold py-3 rounded-xl hover:bg-slate-300 transition">Close</button>
+                <a href="https://maps.app.goo.gl/VFHKurWGpu3odbA6A" target="_blank" class="flex-1 bg-brand text-white font-bold py-3 rounded-xl hover:bg-blue-900 transition flex items-center justify-center gap-2">
+                    <span class="material-symbols-outlined text-sm">directions</span> Map
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div id="adminPanelOverlay">
+        <div style="max-w: 800px; margin: 0 auto; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.2);">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f0f0f0; padding-bottom: 15px; margin-bottom: 20px;">
+                <div>
+                    <h2 style="font-size: 24px; font-weight: 800; color: #1e3a8a; margin: 0;">📦 Stock Manager (Cloud)</h2>
+                    <p style="font-size: 12px; color: #666; margin: 5px 0 0 0;" id="syncStatus">🟢 Connected to Firebase</p>
+                </div>
+                <button onclick="closeAdmin()" style="background: #ef4444; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 14px;">Logout / Close</button>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 25px;">
+                <div style="background: #eff6ff; padding: 15px; border-radius: 10px; border-left: 4px solid #1e3a8a;">
+                    <span style="font-size: 11px; color: #64748b; font-weight: bold; text-transform: uppercase;">Total Value</span><br>
+                    <span id="adminTotalValue" style="font-size: 22px; font-weight: 900; color: #1e3a8a;">₹0</span>
+                </div>
+                <div style="background: #fef2f2; padding: 15px; border-radius: 10px; border-left: 4px solid #dc2626;">
+                    <span style="font-size: 11px; color: #64748b; font-weight: bold; text-transform: uppercase;">Low Stock</span><br>
+                    <span id="adminLowStock" style="font-size: 22px; font-weight: 900; color: #dc2626;">0</span>
+                </div>
+                <div style="background: #f0fdf4; padding: 15px; border-radius: 10px; border-left: 4px solid #16a34a;">
+                    <span style="font-size: 11px; color: #64748b; font-weight: bold; text-transform: uppercase;">Total Items</span><br>
+                    <span id="adminTotalItems" style="font-size: 22px; font-weight: 900; color: #166534;">0</span>
+                </div>
+            </div>
+
+            <div style="background: #f8fafc; padding: 20px; border-radius: 12px; margin-bottom: 25px; border: 1px solid #e2e8f0;">
+                <h3 style="margin-top: 0; margin-bottom: 15px; font-size: 16px; font-weight: bold; color: #333;">➕ Add New Mobile Part To Cloud</h3>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                    <input type="text" id="adminPartName" placeholder="Item Name (e.g. Display/Combo)" style="padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; width: 100%; box-sizing: border-box; font-size: 14px;">
+                    <input type="text" id="adminPartModel" placeholder="Phone Model (e.g. Vivo V20)" style="padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; width: 100%; box-sizing: border-box; font-size: 14px;">
+                    <select id="adminPartCat" style="padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; width: 100%; box-sizing: border-box; font-size: 14px; background: white;">
+                        <option>Folder (Combo)</option><option>CC Board</option><option>Battery</option><option>Glass</option><option>Other Spare</option>
+                    </select>
+                    <input type="number" id="adminPartBuy" placeholder="Purchase Price (₹)" style="padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; width: 100%; box-sizing: border-box; font-size: 14px;">
+                    <input type="number" id="adminPartQty" placeholder="Quantity (Pieces)" style="padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; width: 100%; box-sizing: border-box; font-size: 14px;">
+                    <button onclick="adminSaveItem()" style="background: #1e3a8a; color: white; border: none; padding: 12px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 15px; width: 100%;">Add To Cloud Stock</button>
+                </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <h3 style="font-size: 18px; margin: 0; font-weight: bold;">Cloud Inventory</h3>
+            </div>
+            <input type="text" id="adminSearch" onkeyup="adminFilter()" placeholder="🔍 Search model or part name..." style="width: 100%; padding: 12px 15px; margin-bottom: 20px; border: 1px solid #cbd5e1; border-radius: 8px; box-sizing: border-box; font-size: 14px; background: #f8fafc;">
+            
+            <div id="adminGrid" style="display: grid; grid-template-columns: 1fr; gap: 12px; padding-bottom: 40px;">
+                </div>
+        </div>
+    </div>
+
+    <button onclick="openAdminPrompt()" style="position: fixed; bottom: 85px; left: 20px; background: rgba(30, 58, 138, 0.7); color: white; border: none; width: 45px; height: 45px; border-radius: 50%; z-index: 9998; cursor: pointer; font-size: 10px; font-weight: bold; backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">Admin</button>
+
+    <script>
+        // --- EXISTING WEBSITE LOGIC ---
+        const phoneDb = {
+            "Apple": ["iPhone 17 Pro Max", "iPhone 17 Pro", "iPhone 17", "iPhone 16 Pro Max", "iPhone 16 Pro", "iPhone 15 Series", "iPhone 14 Series", "iPhone 13 Series"],
+            "Samsung": ["Galaxy S26 Ultra", "Galaxy S26", "Galaxy S25 Ultra", "Galaxy S24 Ultra", "Galaxy Z Fold 7", "Galaxy Z Flip 7", "Galaxy A56 5G", "Galaxy A55"],
+            "Vivo": ["Vivo X110 Pro", "Vivo X100 Pro", "Vivo V40 Pro", "Vivo V30", "Vivo T3 Pro", "Vivo T3 5G", "Vivo Y200e"],
+            "Oppo": ["Oppo Find X7 Ultra", "Oppo Reno 12 Pro", "Oppo Reno 11", "Oppo F27 Pro+", "Oppo F25 Pro"],
+            "Xiaomi": ["Xiaomi 16 Pro", "Xiaomi 15", "Xiaomi 14", "Redmi Note 14 Pro+", "Redmi Note 13 Pro", "Redmi 13C 5G"],
+            "OnePlus": ["OnePlus 13", "OnePlus 12", "OnePlus 11", "OnePlus Nord 4", "OnePlus Nord CE 4"],
+            "Realme": ["Realme 13 Pro+", "Realme 12 Pro", "Realme GT 6", "Realme Narzo 70 Pro", "Realme C67"],
+            "Motorola": ["Moto Edge 50 Ultra", "Moto Edge 50 Pro", "Moto G85 5G", "Moto Razr 50 Ultra"],
+            "iQOO": ["iQOO 13", "iQOO 12", "iQOO Neo 10 Pro", "iQOO Z9 Pro"],
+            "Poco": ["Poco F6 Pro", "Poco X6 Pro", "Poco M6 Pro 5G", "Poco C65"],
+            "Google": ["Pixel 9 Pro XL", "Pixel 9 Pro", "Pixel 8 Pro", "Pixel 7a"],
+            "Nothing": ["Nothing Phone (3)", "Nothing Phone (2a)", "Nothing Phone (2)"]
+        };
+
+        const brandImages = {
+            "Apple": "https://images.unsplash.com/photo-1611791484670-ce19b801d192?q=80&w=400&auto=format&fit=crop",
+            "Samsung": "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?q=80&w=400&auto=format&fit=crop",
+            "Default": "https://images.unsplash.com/photo-1580910051074-3eb694886505?q=80&w=400&auto=format&fit=crop"
+        };
+
+        let activeBrand = "";
+        let activeModel = "";
+        let activeSimBrand = "";
+
+        function showPage(pageId) {
+            document.querySelectorAll('.page-view').forEach(p => p.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+            window.scrollTo(0,0);
+        }
+
+        function scrollToSection(sectionId) {
+            showPage('homePage');
+            setTimeout(() => { document.getElementById(sectionId).scrollIntoView({behavior: 'smooth', block: 'start'}); }, 100);
+        }
+
+        function openModels(brand) {
+            activeBrand = brand;
+            document.getElementById('displayBrandName').innerText = brand;
+            document.getElementById('modelSearchBox').value = ''; 
+            
+            const container = document.getElementById('modelsGridContainer');
+            container.innerHTML = ''; 
+
+            const manualCard = document.createElement('div');
+            manualCard.className = "model-card manual-card bg-brand p-3 rounded-2xl shadow-md border border-brand cursor-pointer hover:bg-blue-900 transition flex flex-col items-center justify-center text-center text-white";
+            manualCard.innerHTML = `
+                <div class="w-full h-28 mb-3 rounded-xl flex flex-col items-center justify-center bg-white/10">
+                    <span class="material-symbols-outlined text-4xl mb-1">keyboard</span>
+                    <span class="text-xs font-medium">Type your model</span>
+                </div>
+                <span class="text-xs font-bold w-full truncate">Enter Manually</span>
+            `;
+            manualCard.onclick = () => openBookingModal("Manual");
+            container.appendChild(manualCard);
+
+            const models = phoneDb[brand] || phoneDb["Samsung"]; 
+            let imgUrl = brandImages[brand] || brandImages["Default"];
+
+            models.forEach(model => {
+                const card = document.createElement('div');
+                card.className = "model-card bg-white p-3 rounded-2xl shadow-sm border border-slate-100 cursor-pointer hover:border-brand hover:shadow-lg transition flex flex-col items-center justify-center text-center";
+                card.innerHTML = `
+                    <div class="w-full h-28 mb-3 rounded-xl overflow-hidden bg-slate-50 flex items-center justify-center">
+                        <img src="${imgUrl}" class="w-full h-full object-cover opacity-90">
+                    </div>
+                    <span class="text-xs font-bold text-slate-800 leading-snug w-full truncate">${model}</span>
+                `;
+                card.onclick = () => openBookingModal(model);
+                container.appendChild(card);
+            });
+
+            showPage('modelsPage');
+        }
+
+        function filterModels() {
+            let input = document.getElementById('modelSearchBox').value.toLowerCase();
+            let cards = document.getElementsByClassName('model-card');
+            for(let i=0; i<cards.length; i++) {
+                if(cards[i].classList.contains('manual-card')){ cards[i].style.display = "flex"; continue; }
+                let name = cards[i].innerText.toLowerCase();
+                cards[i].style.display = (name.indexOf(input) > -1) ? "flex" : "none";
+            }
+        }
+
+        function openBookingModal(model) {
+            activeModel = model;
+            if(model === "Manual") {
+                document.getElementById('modalDeviceText').innerText = activeBrand + " - Custom Model";
+                document.getElementById('manualModelContainer').classList.remove('hidden');
+                document.getElementById('manualModelInput').required = true;
+            } else {
+                document.getElementById('modalDeviceText').innerText = activeBrand + " " + activeModel;
+                document.getElementById('manualModelContainer').classList.add('hidden');
+                document.getElementById('manualModelInput').required = false;
+            }
+            document.getElementById('bookingModal').classList.remove('hidden');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.add('hidden');
+        }
+
+        document.getElementById('bookingForm').addEventListener('submit', function(e){
+            e.preventDefault();
+            let name = document.getElementById('custName').value;
+            let issue = document.getElementById('issueInput').value;
+            let date = document.getElementById('dateInput').value;
+            let finalModel = (activeModel === "Manual") ? document.getElementById('manualModelInput').value : activeModel;
+
+            let text = `*New Repair Order (Website)*%0A%0A*Name:* ${name}%0A*Phone:* ${activeBrand} ${finalModel}%0A*Problem:* ${issue}%0A*Date:* ${date}`;
+            window.open(`https://wa.me/919395323010?text=${text}`, '_blank');
+            closeModal('bookingModal');
+            this.reset();
+        });
+
+        // SIM LOGIC
+        function openSimModal(brand) {
+            activeSimBrand = brand;
+            document.getElementById('selectedSimBrand').innerText = brand;
+            document.querySelector('input[name="simNet"][value="4G"]').checked = true;
+            document.querySelector('input[name="simType"][value="Normal"]').checked = true;
+            updateSimAction();
+            document.getElementById('simModal').classList.remove('hidden');
+        }
+
+        function updateSimAction() {
+            let simType = document.querySelector('input[name="simType"]:checked').value;
+            let btn = document.getElementById('simActionButton');
+            
+            if (activeSimBrand === 'Jio' && simType === 'VIP') {
+                btn.innerHTML = `<span class="material-symbols-outlined">stars</span> Proceed to Jio Choice Portal`;
+                btn.className = "w-full bg-blue-600 text-white font-bold rounded-xl py-4 shadow-lg hover:bg-blue-800 active:scale-95 transition-transform flex justify-center items-center gap-2 text-lg";
+            } else {
+                btn.innerHTML = `<span class="material-symbols-outlined">storefront</span> Visit Store to Buy`;
+                btn.className = "w-full bg-brand text-white font-bold rounded-xl py-4 shadow-lg hover:bg-blue-900 active:scale-95 transition-transform flex justify-center items-center gap-2 text-lg";
+            }
+        }
+
+        function executeSimAction() {
+            let simType = document.querySelector('input[name="simType"]:checked').value;
+            if (activeSimBrand === 'Jio' && simType === 'VIP') {
+                window.open('https://www.jio.com/selfcare/choice-number/', '_blank');
+            } else {
+                closeModal('simModal');
+                document.getElementById('visitStoreModal').classList.remove('hidden');
+            }
+        }
+
+        // --- NEW FIREBASE CLOUD DATABASE LOGIC ---
+        const firebaseConfig = {
+            apiKey: "AIzaSyDB9c9FF_rLhnzY3mbxrh6eBzNrXjuIEZ8",
+            authDomain: "chandan-communication-3e18f.firebaseapp.com",
+            projectId: "chandan-communication-3e18f",
+            storageBucket: "chandan-communication-3e18f.firebasestorage.app",
+            messagingSenderId: "312042295513",
+            appId: "1:312042295513:web:b087a8371606b397b52ec8",
+            databaseURL: "https://chandan-communication-3e18f-default-rtdb.firebaseio.com"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+        let adminDb = [];
+        let isAdminOpen = false;
+
+        // Firebase Realtime Listener
+        database.ref('chandan_stock_db').on('value', (snapshot) => {
+            const data = snapshot.val();
+            adminDb = data ? Object.keys(data).map(key => ({...data[key], id: key})) : [];
+            
+            if(isAdminOpen) {
+                adminUpdateUI();
+                document.getElementById('syncStatus').innerText = "🟢 Synced with Firebase";
+            }
+        });
+
+        function openAdminPrompt() {
+            let pass = prompt("Enter Admin Password (CC Board):");
+            if (pass === "Chandan781") {
+                isAdminOpen = true;
+                document.getElementById('adminPanelOverlay').classList.add('admin-active');
+                adminUpdateUI();
+            } else if (pass !== null) {
+                alert("Wrong Password! Access Denied.");
+            }
+        }
+
+        function closeAdmin() {
+            isAdminOpen = false;
+            document.getElementById('adminPanelOverlay').classList.remove('admin-active');
+        }
+
+        function adminSaveItem() {
+            let name = document.getElementById('adminPartName').value;
+            let model = document.getElementById('adminPartModel').value;
+            let cat = document.getElementById('adminPartCat').value;
+            let buy = parseFloat(document.getElementById('adminPartBuy').value) || 0;
+            let qty = parseInt(document.getElementById('adminPartQty').value) || 0;
+
+            if(!name || !model) return alert("Bhai, Item Name aur Model likhna zaroori hai!");
+            
+            document.getElementById('syncStatus').innerText = "⏳ Saving to Cloud...";
+            
+            let newItem = { name: name, model: model, cat: cat, buy: buy, qty: qty };
+            database.ref('chandan_stock_db').push().set(newItem);
+            
+            ['adminPartName','adminPartModel','adminPartBuy','adminPartQty'].forEach(id => document.getElementById(id).value = '');
+        }
+
+        function adminUpdateQty(id, chg) {
+            let idx = adminDb.findIndex(i => i.id === id);
+            let newQty = adminDb[idx].qty + chg;
+            if(newQty < 0) newQty = 0;
+            
+            document.getElementById('syncStatus').innerText = "⏳ Updating Cloud...";
+            database.ref('chandan_stock_db/' + id).update({ qty: newQty });
+        }
+        
+        function adminDelete(id) {
+            if(confirm("Cloud se yeh part hamesha ke liye delete karu?")){
+                document.getElementById('syncStatus').innerText = "⏳ Deleting from Cloud...";
+                database.ref('chandan_stock_db/' + id).remove();
+            }
+        }
+
+        function adminUpdateUI() {
+            let grid = document.getElementById('adminGrid');
+            grid.innerHTML = '';
+            let val = 0, low = 0;
+
+            let sortedDb = [...adminDb].sort((a, b) => a.qty - b.qty);
+
+            sortedDb.forEach(item => {
+                val += (item.buy * item.qty);
+                if(item.qty <= 2) low++;
+                
+                let isLow = item.qty <= 2 ? 'low-stock-alert' : '';
+                
+                grid.innerHTML += `
+                    <div class="${isLow}" style="display: flex; justify-content: space-between; align-items: center; padding: 15px; border: 1px solid #e2e8f0; border-radius: 10px; background: white;">
+                        <div style="flex: 1;">
+                            <span style="background: #dbeafe; color: #1d4ed8; padding: 3px 8px; border-radius: 4px; font-size: 10px; font-weight: bold; text-transform: uppercase;">${item.cat}</span>
+                            <h4 style="margin: 6px 0 2px 0; font-size: 16px; font-weight: 800; color: #111;">${item.model}</h4>
+                            <p style="margin: 0; font-size: 12px; color: #64748b;">${item.name} | Buy: <b>₹${item.buy}</b></p>
+                        </div>
+                        <div style="text-align: right;">
+                            <div style="font-size: 24px; font-weight: 900; color: #0f172a; margin-bottom: 6px;">${item.qty} Pcs</div>
+                            <div style="display: flex; gap: 6px; justify-content: flex-end;">
+                                <button onclick="adminUpdateQty('${item.id}', 1)" style="background: #22c55e; color: white; border: none; border-radius: 6px; width: 32px; height: 32px; font-weight: bold; font-size: 16px; cursor: pointer;">+</button>
+                                <button onclick="adminUpdateQty('${item.id}', -1)" style="background: #f97316; color: white; border: none; border-radius: 6px; width: 32px; height: 32px; font-weight: bold; font-size: 16px; cursor: pointer;">-</button>
+                                <button onclick="adminDelete('${item.id}')" style="background: #ef4444; color: white; border: none; border-radius: 6px; width: 32px; height: 32px; font-weight: bold; font-size: 14px; cursor: pointer;">X</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            document.getElementById('adminTotalValue').innerText = '₹' + val.toLocaleString();
+            document.getElementById('adminLowStock').innerText = low;
+            document.getElementById('adminTotalItems').innerText = adminDb.length;
+        }
+
+        function adminFilter() {
+            let term = document.getElementById('adminSearch').value.toLowerCase();
+            let items = document.getElementById('adminGrid').children;
+            for(let i=0; i<items.length; i++) {
+                items[i].style.display = items[i].innerText.toLowerCase().includes(term) ? "flex" : "none";
+            }
+        }
+    </script>
+</body>
+</html>
