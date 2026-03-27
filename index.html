@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Chandan Communications1 | Guwahati's Best Mobile Repair</title>
+    <title>Chandan Communications | Guwahati's Best Mobile Repair</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     
@@ -12,14 +12,15 @@
     
     <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-database-compat.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     fontFamily: { sans: ['Poppins', 'sans-serif'] },
                     colors: {
-                        brand: '#1e3a8a', // Deep Blue
-                        accent: '#f97316' // Orange
+                        brand: '#1e3a8a', 
+                        accent: '#f97316' 
                     }
                 }
             }
@@ -35,10 +36,14 @@
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         
-        /* Admin Stock Panel Styles */
         #adminPanelOverlay { display: none; position: fixed; inset: 0; background: #f3f4f6; z-index: 999999; overflow-y: auto; padding: 20px; font-family: Arial, sans-serif; }
         .admin-active { display: block !important; }
         .low-stock-alert { background: #fee2e2 !important; border: 1px solid #ef4444 !important; }
+        
+        .digital-receipt { background: white; border: 2px dashed #cbd5e1; border-radius: 12px; padding: 20px; position: relative; margin-top: 20px;}
+        .digital-receipt::before, .digital-receipt::after { content: ''; position: absolute; top: -10px; width: 20px; height: 20px; background: #f3f4f6; border-radius: 50%; border-bottom: 2px solid #cbd5e1; }
+        .digital-receipt::before { left: 20px; }
+        .digital-receipt::after { right: 20px; }
     </style>
 </head>
 <body class="text-slate-800 pb-24">
@@ -85,7 +90,7 @@
             </div>
 
             <div class="mt-8 mb-4 hover:scale-105 transition-transform duration-300">
-                <img src="offer.jpg" alt="Special Offer" class="w-full rounded-2xl shadow-xl border-4 border-accent">
+                <img src="offer.jpg" alt="Special Offer" class="w-full rounded-2xl shadow-xl border-4 border-accent" onerror="this.style.display='none'">
             </div>
 
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
@@ -226,13 +231,13 @@
                 <h2 class="text-2xl font-bold text-brand mb-4 border-b pb-2 flex items-center gap-2">
                     <span class="material-symbols-outlined">storefront</span> Visit Our Shop
                 </h2>
-                <div class="flex flex-col md:flex-row gap-6">
+                <div class="flex flex-col md:flex-row gap-6 mb-6">
                     <div class="flex-1 space-y-4">
                         <div class="flex items-start gap-3">
                             <span class="material-symbols-outlined text-accent mt-1">location_on</span>
                             <p class="text-sm font-medium leading-relaxed">
                                 <strong class="text-lg text-slate-800 block mb-1">BHARGAV INN</strong>
-                                Vaishali Complex, Assam Trunk Rd,<br>
+                                Ishan Market, Assam Trunk Rd,<br>
                                 PWD Colony, Paltan Bazaar,<br>
                                 Guwahati, Assam 781008
                             </p>
@@ -250,6 +255,16 @@
                             <span class="material-symbols-outlined">chat</span> Chat on WhatsApp
                         </a>
                     </div>
+                </div>
+
+                <div class="w-full rounded-xl overflow-hidden shadow-sm relative bg-black flex justify-center">
+                    <div class="absolute top-2 left-2 bg-red-500 text-white text-[10px] font-bold px-2 py-1 rounded shadow z-10 animate-pulse">
+                        LIVE SHOWCASE
+                    </div>
+                    <video controls muted autoplay loop playsinline class="w-full rounded-xl max-h-[80vh] object-contain" onerror="this.style.display='none'">
+                        <source src="shop.mp4" type="video/mp4">
+                        Aapka browser video support nahi karta.
+                    </video>
                 </div>
             </div>
             
@@ -296,116 +311,6 @@
         </button>
     </nav>
 
-    <a href="https://wa.me/919395323010" target="_blank" class="fixed bottom-20 right-4 bg-green-500 text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-transform z-50 flex items-center justify-center">
-        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
-    </a>
-
-    <div id="bookingModal" class="hidden fixed inset-0 z-[100] flex items-end md:items-center justify-center bg-black/70 backdrop-blur-sm">
-        <div class="bg-white w-full max-w-lg rounded-t-3xl md:rounded-3xl p-6 shadow-2xl animate-[fadeIn_0.3s_ease-out] max-h-[90vh] overflow-y-auto">
-            <div class="flex justify-between items-center mb-4">
-                <h3 class="text-2xl font-bold text-brand">Book Repair</h3>
-                <button onclick="closeModal('bookingModal')" class="bg-slate-100 p-2 rounded-full hover:bg-red-100 hover:text-red-500 transition">
-                    <span class="material-symbols-outlined">close</span>
-                </button>
-            </div>
-            
-            <div class="bg-blue-50 border border-blue-100 p-3 rounded-xl mb-4 flex items-center gap-3">
-                <span class="material-symbols-outlined text-blue-500 text-3xl">build_circle</span>
-                <div>
-                    <p class="text-[10px] text-blue-600 font-bold uppercase">Device to Repair</p>
-                    <p id="modalDeviceText" class="font-bold text-slate-800 text-sm">Brand - Model</p>
-                </div>
-            </div>
-
-            <form id="bookingForm" class="space-y-3">
-                <div id="manualModelContainer" class="hidden bg-slate-100 p-3 rounded-xl border border-slate-300">
-                    <label class="block text-xs font-bold text-brand mb-1">Enter Your Phone Model <span class="text-red-500">*</span></label>
-                    <input type="text" id="manualModelInput" class="w-full bg-white border border-slate-300 rounded-lg p-2 text-sm focus:border-brand focus:outline-none" placeholder="E.g. Galaxy M12, iPhone 7 Plus...">
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-slate-500 mb-1">Your Name</label>
-                    <input type="text" id="custName" required class="w-full bg-slate-50 border border-slate-200 rounded-lg p-3 text-sm focus:border-brand focus:outline-none" placeholder="Enter full name">
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-slate-500 mb-1">What's the issue?</label>
-                    <textarea id="issueInput" required rows="2" class="w-full bg-slate-50 border border-slate-200 rounded-lg p-3 text-sm focus:border-brand focus:outline-none" placeholder="E.g. Display broken, Battery fast drain..."></textarea>
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-slate-500 mb-1">Expected Visit Date</label>
-                    <input type="date" id="dateInput" required class="w-full bg-slate-50 border border-slate-200 rounded-lg p-3 text-sm focus:border-brand focus:outline-none">
-                </div>
-                <button type="submit" class="w-full bg-brand text-white font-bold rounded-xl py-4 mt-2 shadow-lg hover:bg-blue-900 active:scale-95 transition-transform flex justify-center items-center gap-2">
-                    <span class="material-symbols-outlined">send</span> Send Request to Shop
-                </button>
-            </form>
-        </div>
-    </div>
-
-    <div id="simModal" class="hidden fixed inset-0 z-[110] flex items-end md:items-center justify-center bg-black/70 backdrop-blur-sm">
-        <div class="bg-white w-full max-w-md rounded-t-3xl md:rounded-3xl p-6 shadow-2xl animate-[fadeIn_0.3s_ease-out]">
-            <div class="flex justify-between items-center mb-6">
-                <h3 class="text-2xl font-bold text-brand flex items-center gap-2">
-                    <span class="material-symbols-outlined text-3xl">sim_card</span> New Connection
-                </h3>
-                <button onclick="closeModal('simModal')" class="bg-slate-100 p-2 rounded-full hover:bg-red-100 hover:text-red-500 transition">
-                    <span class="material-symbols-outlined">close</span>
-                </button>
-            </div>
-            
-            <p class="text-center font-bold text-lg mb-4 text-slate-800">You selected: <span id="selectedSimBrand" class="text-brand">Jio</span></p>
-
-            <label class="block text-xs font-bold text-slate-500 mb-2 uppercase tracking-wider">Select Network Speed</label>
-            <div class="grid grid-cols-2 gap-3 mb-5">
-                <label class="cursor-pointer">
-                    <input type="radio" name="simNet" value="4G" class="peer sr-only" checked onchange="updateSimAction()">
-                    <div class="text-center p-3 rounded-xl border-2 border-slate-200 peer-checked:bg-blue-50 peer-checked:border-brand peer-checked:text-brand font-bold transition">4G Network</div>
-                </label>
-                <label class="cursor-pointer">
-                    <input type="radio" name="simNet" value="5G" class="peer sr-only" onchange="updateSimAction()">
-                    <div class="text-center p-3 rounded-xl border-2 border-slate-200 peer-checked:bg-blue-50 peer-checked:border-brand peer-checked:text-brand font-bold transition">5G Ultra Fast</div>
-                </label>
-            </div>
-
-            <label class="block text-xs font-bold text-slate-500 mb-2 uppercase tracking-wider">Select Number Type</label>
-            <div class="grid grid-cols-2 gap-3 mb-6">
-                <label class="cursor-pointer">
-                    <input type="radio" name="simType" value="Normal" class="peer sr-only" checked onchange="updateSimAction()">
-                    <div class="text-center p-3 rounded-xl border-2 border-slate-200 peer-checked:bg-orange-50 peer-checked:border-accent peer-checked:text-accent font-bold transition">Regular SIM</div>
-                </label>
-                <label class="cursor-pointer relative">
-                    <input type="radio" name="simType" value="VIP" class="peer sr-only" onchange="updateSimAction()">
-                    <div class="text-center p-3 rounded-xl border-2 border-slate-200 peer-checked:bg-orange-50 peer-checked:border-accent peer-checked:text-accent font-bold transition">VIP / Fancy</div>
-                </label>
-            </div>
-
-            <button id="simActionButton" onclick="executeSimAction()" class="w-full bg-brand text-white font-bold rounded-xl py-4 shadow-lg hover:bg-blue-900 active:scale-95 transition-transform flex justify-center items-center gap-2 text-lg">
-                <span class="material-symbols-outlined">storefront</span> Visit Store to Buy
-            </button>
-        </div>
-    </div>
-
-    <div id="visitStoreModal" class="hidden fixed inset-0 z-[120] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
-        <div class="bg-white w-full max-w-sm rounded-3xl p-6 shadow-2xl text-center animate-[fadeIn_0.3s_ease-out]">
-            <div class="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span class="material-symbols-outlined text-4xl">storefront</span>
-            </div>
-            <h3 class="text-2xl font-extrabold text-slate-800 mb-2">Visit Our Shop</h3>
-            <p class="text-sm text-slate-600 mb-6 font-medium">To collect your new SIM card and do the KYC, please visit us at:</p>
-            
-            <div class="bg-slate-50 p-4 rounded-xl text-left border border-slate-200 mb-6">
-                <strong class="text-brand text-lg block mb-1">BHARGAV INN</strong>
-                <p class="text-xs text-slate-600 leading-relaxed">Vaishali Complex, Assam Trunk Rd,<br>PWD Colony, Paltan Bazaar,<br>Guwahati, Assam 781008</p>
-            </div>
-
-            <div class="flex gap-3">
-                <button onclick="closeModal('visitStoreModal')" class="flex-1 bg-slate-200 text-slate-700 font-bold py-3 rounded-xl hover:bg-slate-300 transition">Close</button>
-                <a href="https://maps.app.goo.gl/VFHKurWGpu3odbA6A" target="_blank" class="flex-1 bg-brand text-white font-bold py-3 rounded-xl hover:bg-blue-900 transition flex items-center justify-center gap-2">
-                    <span class="material-symbols-outlined text-sm">directions</span> Map
-                </a>
-            </div>
-        </div>
-    </div>
-
     <div id="loginOverlay" class="hidden fixed inset-0 z-[99999] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
         <div class="bg-white w-full max-w-sm rounded-3xl p-6 shadow-2xl animate-[fadeIn_0.3s_ease-out]">
             <div class="flex justify-between items-center mb-6">
@@ -426,7 +331,13 @@
                     <label class="block text-xs font-bold text-slate-500 mb-1">Password</label>
                     <input type="password" id="adminPass" class="w-full bg-slate-50 border border-slate-200 rounded-lg p-3 text-sm focus:border-brand focus:outline-none" placeholder="Enter password">
                 </div>
-                <button onclick="verifyAdminLogin()" class="w-full bg-brand text-white font-bold rounded-xl py-4 mt-4 shadow-lg hover:bg-blue-900 active:scale-95 transition-transform flex justify-center items-center gap-2 text-lg">
+                
+                <div class="flex items-center gap-2 mt-2">
+                    <input type="checkbox" id="rememberMe" class="w-4 h-4 text-brand bg-slate-50 border-slate-300 rounded cursor-pointer">
+                    <label for="rememberMe" class="text-xs font-bold text-slate-500 cursor-pointer">Remember Username</label>
+                </div>
+
+                <button onclick="verifyAdminLogin()" class="w-full bg-brand text-white font-bold rounded-xl py-4 mt-2 shadow-lg hover:bg-blue-900 active:scale-95 transition-transform flex justify-center items-center gap-2 text-lg">
                     <span class="material-symbols-outlined">login</span> Secure Login
                 </button>
                 <p id="loginError" class="text-red-500 text-xs font-bold text-center hidden mt-2">Bhai, Username ya Password galat hai!</p>
@@ -436,56 +347,175 @@
 
     <div id="adminPanelOverlay">
         <div style="max-w: 800px; margin: 0 auto; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.2);">
+            
             <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f0f0f0; padding-bottom: 15px; margin-bottom: 20px;">
                 <div>
-                    <h2 style="font-size: 24px; font-weight: 800; color: #1e3a8a; margin: 0;">📦 Stock Manager (Cloud)</h2>
+                    <h2 style="font-size: 24px; font-weight: 800; color: #1e3a8a; margin: 0;">🛠️ Admin Control Panel</h2>
                     <p style="font-size: 12px; color: #666; margin: 5px 0 0 0;" id="syncStatus">🟢 Connected to Firebase</p>
                 </div>
-                <button onclick="closeAdmin()" style="background: #ef4444; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 14px;">Logout / Close</button>
+                <button onclick="closeAdmin()" style="background: #ef4444; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 14px;">Logout</button>
             </div>
 
-            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 25px;">
-                <div style="background: #eff6ff; padding: 15px; border-radius: 10px; border-left: 4px solid #1e3a8a;">
-                    <span style="font-size: 11px; color: #64748b; font-weight: bold; text-transform: uppercase;">Total Value</span><br>
-                    <span id="adminTotalValue" style="font-size: 22px; font-weight: 900; color: #1e3a8a;">₹0</span>
-                </div>
-                <div style="background: #fef2f2; padding: 15px; border-radius: 10px; border-left: 4px solid #dc2626;">
-                    <span style="font-size: 11px; color: #64748b; font-weight: bold; text-transform: uppercase;">Low Stock</span><br>
-                    <span id="adminLowStock" style="font-size: 22px; font-weight: 900; color: #dc2626;">0</span>
-                </div>
-                <div style="background: #f0fdf4; padding: 15px; border-radius: 10px; border-left: 4px solid #16a34a;">
-                    <span style="font-size: 11px; color: #64748b; font-weight: bold; text-transform: uppercase;">Total Items</span><br>
-                    <span id="adminTotalItems" style="font-size: 22px; font-weight: 900; color: #166534;">0</span>
-                </div>
+            <div style="display: flex; gap: 5px; margin-bottom: 20px;">
+                <button onclick="switchAdminTab('stockTab')" id="btnStockTab" style="flex: 1; padding: 10px; background: #1e3a8a; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size:12px;">📦 Stock</button>
+                <button onclick="switchAdminTab('jobsTab')" id="btnJobsTab" style="flex: 1; padding: 10px; background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; border-radius: 8px; font-weight: bold; cursor: pointer; font-size:12px;">📋 Repair Jobs</button>
+                <button onclick="switchAdminTab('receiptTab')" id="btnReceiptTab" style="flex: 1; padding: 10px; background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; border-radius: 8px; font-weight: bold; cursor: pointer; font-size:12px;">🧾 Receipt</button>
             </div>
 
-            <div style="background: #f8fafc; padding: 20px; border-radius: 12px; margin-bottom: 25px; border: 1px solid #e2e8f0;">
-                <h3 style="margin-top: 0; margin-bottom: 15px; font-size: 16px; font-weight: bold; color: #333;">➕ Add New Mobile Part To Cloud</h3>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
-                    <input type="text" id="adminPartName" placeholder="Item Name (e.g. Display/Combo)" style="padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; width: 100%; box-sizing: border-box; font-size: 14px;">
-                    <input type="text" id="adminPartModel" placeholder="Phone Model (e.g. Vivo V20)" style="padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; width: 100%; box-sizing: border-box; font-size: 14px;">
-                    <select id="adminPartCat" style="padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; width: 100%; box-sizing: border-box; font-size: 14px; background: white;">
-                        <option>Folder (Combo)</option><option>CC Board</option><option>Battery</option><option>Glass</option><option>Other Spare</option>
-                    </select>
-                    <input type="number" id="adminPartBuy" placeholder="Purchase Price (₹)" style="padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; width: 100%; box-sizing: border-box; font-size: 14px;">
-                    <input type="number" id="adminPartQty" placeholder="Quantity (Pieces)" style="padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; width: 100%; box-sizing: border-box; font-size: 14px;">
-                    <button onclick="adminSaveItem()" style="background: #1e3a8a; color: white; border: none; padding: 12px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 15px; width: 100%;">Add To Cloud Stock</button>
+            <div id="stockTab">
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 25px;">
+                    <div style="background: #eff6ff; padding: 15px; border-radius: 10px; border-left: 4px solid #1e3a8a;">
+                        <span style="font-size: 11px; color: #64748b; font-weight: bold; text-transform: uppercase;">Total Value</span><br>
+                        <span id="adminTotalValue" style="font-size: 22px; font-weight: 900; color: #1e3a8a;">₹0</span>
+                    </div>
+                    <div style="background: #fef2f2; padding: 15px; border-radius: 10px; border-left: 4px solid #dc2626;">
+                        <span style="font-size: 11px; color: #64748b; font-weight: bold; text-transform: uppercase;">Low Stock</span><br>
+                        <span id="adminLowStock" style="font-size: 22px; font-weight: 900; color: #dc2626;">0</span>
+                    </div>
+                    <div style="background: #f0fdf4; padding: 15px; border-radius: 10px; border-left: 4px solid #16a34a;">
+                        <span style="font-size: 11px; color: #64748b; font-weight: bold; text-transform: uppercase;">Total Items</span><br>
+                        <span id="adminTotalItems" style="font-size: 22px; font-weight: 900; color: #166534;">0</span>
+                    </div>
                 </div>
+
+                <div style="background: #f8fafc; padding: 20px; border-radius: 12px; margin-bottom: 25px; border: 1px solid #e2e8f0;">
+                    <h3 style="margin-top: 0; margin-bottom: 15px; font-size: 16px; font-weight: bold; color: #333;">➕ Add New Mobile Part To Cloud</h3>
+                    <div style="display: grid; grid-template-columns: 1fr; md:grid-cols-2; gap: 12px;">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                            <input type="text" id="adminBoxNo" placeholder="Box No. (e.g. B-12)" style="padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; width: 100%; box-sizing: border-box; font-size: 14px;">
+                            <select id="adminPartBrand" style="padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; width: 100%; box-sizing: border-box; font-size: 14px; background: white; font-weight: bold; color: #1e3a8a;">
+                                <option value="Universal">🌐 Universal / All</option>
+                                <option value="Apple">Apple</option>
+                                <option value="Samsung">Samsung</option>
+                                <option value="Vivo">Vivo</option>
+                                <option value="Oppo">Oppo</option>
+                                <option value="Xiaomi/Redmi">Xiaomi / Redmi</option>
+                                <option value="Realme">Realme</option>
+                                <option value="OnePlus">OnePlus</option>
+                                <option value="Motorola">Motorola</option>
+                                <option value="iQOO">iQOO</option>
+                                <option value="Poco">Poco</option>
+                                <option value="Nothing">Nothing</option>
+                                <option value="Google Pixel">Google Pixel</option>
+                                <option value="Tecno">Tecno</option>
+                                <option value="Infinix">Infinix</option>
+                                <option value="Itel">Itel</option>
+                                <option value="Lava">Lava</option>
+                                <option value="Micromax">Micromax</option>
+                                <option value="Nokia">Nokia</option>
+                                <option value="Asus">Asus</option>
+                                <option value="Honor">Honor</option>
+                                <option value="Other">Other Brand</option>
+                            </select>
+                        </div>
+                        <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 12px;">
+                            <select id="adminPartCat" style="padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; width: 100%; box-sizing: border-box; font-size: 14px; background: white;">
+                                <option>Folder (Combo)</option><option>CC Board</option><option>Battery</option><option>Glass</option><option>Other Spare</option>
+                            </select>
+                            <input type="text" id="adminPartModel" placeholder="Models (e.g. C11 / C12)" style="padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; width: 100%; box-sizing: border-box; font-size: 14px;">
+                        </div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                            <input type="number" id="adminPartBuy" placeholder="Purchase Price (₹)" style="padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; width: 100%; box-sizing: border-box; font-size: 14px;">
+                            <input type="number" id="adminPartQty" placeholder="Quantity (Pcs)" style="padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; width: 100%; box-sizing: border-box; font-size: 14px;">
+                        </div>
+                        <button onclick="adminSaveItem()" style="background: #1e3a8a; color: white; border: none; padding: 12px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 15px; width: 100%;">Add To Cloud Stock</button>
+                    </div>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                    <h3 style="font-size: 18px; margin: 0; font-weight: bold;">Cloud Inventory</h3>
+                </div>
+                <input type="text" id="adminSearch" onkeyup="adminFilter()" placeholder="🔍 Search box, brand, model or part..." style="width: 100%; padding: 12px 15px; margin-bottom: 20px; border: 1px solid #cbd5e1; border-radius: 8px; box-sizing: border-box; font-size: 14px; background: #f8fafc;">
+                
+                <div id="adminGrid" style="display: grid; grid-template-columns: 1fr; gap: 12px; padding-bottom: 40px;">
+                    </div>
             </div>
 
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                <h3 style="font-size: 18px; margin: 0; font-weight: bold;">Cloud Inventory</h3>
+            <div id="jobsTab" style="display: none; padding-bottom: 40px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                    <h3 style="font-size: 18px; margin: 0; font-weight: bold; color: #1e3a8a;">📋 Active Repair Jobs</h3>
+                    <span style="font-size: 10px; color: #ef4444; font-weight: bold;">(Auto delete in 7 Days)</span>
+                </div>
+                <div id="jobsGrid" style="display: grid; grid-template-columns: 1fr; gap: 12px;">
+                    </div>
             </div>
-            <input type="text" id="adminSearch" onkeyup="adminFilter()" placeholder="🔍 Search model or part name..." style="width: 100%; padding: 12px 15px; margin-bottom: 20px; border: 1px solid #cbd5e1; border-radius: 8px; box-sizing: border-box; font-size: 14px; background: #f8fafc;">
+
+            <div id="receiptTab" style="display: none; padding-bottom: 40px;">
+                <div style="background: #f8fafc; padding: 20px; border-radius: 12px; border: 1px solid #e2e8f0;">
+                    <h3 style="margin-top: 0; margin-bottom: 15px; font-size: 16px; font-weight: bold; color: #333;">📝 Generate Customer Receipt</h3>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr; gap: 12px;">
+                        <input type="text" id="rcptName" placeholder="Customer Name" style="padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; width: 100%; box-sizing: border-box; font-size: 14px;">
+                        <input type="tel" id="rcptPhone" placeholder="Customer WhatsApp Number" style="padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; width: 100%; box-sizing: border-box; font-size: 14px;">
+                        <input type="text" id="rcptModel" placeholder="Phone Model (e.g. Vivo V20)" style="padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; width: 100%; box-sizing: border-box; font-size: 14px;">
+                        <input type="text" id="rcptIssue" placeholder="Fault / Issue (e.g. Broken Display)" style="padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; width: 100%; box-sizing: border-box; font-size: 14px;">
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                            <input type="number" id="rcptTotal" placeholder="Estimated Cost (₹)" style="padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; width: 100%; box-sizing: border-box; font-size: 14px;">
+                            <input type="number" id="rcptAdvance" placeholder="Advance Paid (₹)" style="padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; width: 100%; box-sizing: border-box; font-size: 14px;">
+                        </div>
+                        <input type="text" id="rcptDate" placeholder="Expected Delivery Date (e.g. 28 Mar 2026)" style="padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; width: 100%; box-sizing: border-box; font-size: 14px;">
+                        
+                        <button onclick="generateBill()" style="background: #10b981; color: white; border: none; padding: 15px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 16px; width: 100%; margin-top: 10px;">🧾 Generate Professional Bill</button>
+                    </div>
+                </div>
+
+                <div id="finalBillBox" style="display: none;">
+                    <div class="digital-receipt" id="captureReceipt">
+                        <div style="text-align: center; border-bottom: 2px dashed #e2e8f0; padding-bottom: 10px; margin-bottom: 15px;">
+                            <h2 style="font-size: 22px; font-weight: 900; color: #1e3a8a; margin: 0; text-transform: uppercase;">Chandan Communication</h2>
+                            <p style="font-size: 11px; color: #64748b; margin: 5px 0 0 0;">Ishan Market, PWD Colony, Paltan Bazaar, Guwahati<br>📞 +91 9395323010</p>
+                        </div>
+                        
+                        <div style="display: flex; justify-content: space-between; font-size: 12px; color: #475569; margin-bottom: 15px;">
+                            <span><b>Date:</b> <span id="billDateNow"></span></span>
+                            <span><b>Job ID:</b> <span id="billId"></span></span>
+                        </div>
+
+                        <table style="width: 100%; font-size: 14px; text-align: left; border-collapse: collapse;">
+                            <tr><td style="padding: 6px 0; border-bottom: 1px solid #f1f5f9; width: 40%; color: #64748b;">Customer Name</td><td style="padding: 6px 0; border-bottom: 1px solid #f1f5f9; font-weight: bold;" id="bName"></td></tr>
+                            <tr><td style="padding: 6px 0; border-bottom: 1px solid #f1f5f9; color: #64748b;">Phone Number</td><td style="padding: 6px 0; border-bottom: 1px solid #f1f5f9; font-weight: bold;" id="bPhone"></td></tr>
+                            <tr><td style="padding: 6px 0; border-bottom: 1px solid #f1f5f9; color: #64748b;">Device Model</td><td style="padding: 6px 0; border-bottom: 1px solid #f1f5f9; font-weight: bold; color: #1e3a8a;" id="bModel"></td></tr>
+                            <tr><td style="padding: 6px 0; border-bottom: 1px solid #f1f5f9; color: #64748b;">Reported Issue</td><td style="padding: 6px 0; border-bottom: 1px solid #f1f5f9; font-weight: bold;" id="bIssue"></td></tr>
+                            <tr><td style="padding: 6px 0; border-bottom: 1px solid #f1f5f9; color: #64748b;">Delivery Date</td><td style="padding: 6px 0; border-bottom: 1px solid #f1f5f9; font-weight: bold; color: #ea580c;" id="bDelDate"></td></tr>
+                        </table>
+
+                        <div style="background: #f8fafc; padding: 15px; border-radius: 8px; margin-top: 15px;">
+                            <div style="display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 5px;"><span>Est. Total Cost:</span> <span style="font-weight: bold;">₹<span id="bTotal"></span></span></div>
+                            <div style="display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 5px; color: #16a34a;"><span>Advance Paid:</span> <span style="font-weight: bold;">₹<span id="bAdvance"></span></span></div>
+                            <div style="display: flex; justify-content: space-between; font-size: 16px; font-weight: 900; margin-top: 10px; border-top: 2px solid #e2e8f0; padding-top: 10px; color: #dc2626;">
+                                <span>Balance Due:</span> <span>₹<span id="bBalance"></span></span>
+                            </div>
+                        </div>
+                        
+                        <p style="font-size: 9px; color: #94a3b8; text-align: center; margin-top: 15px; line-height: 1.2;">* This is an estimated cost, subject to change after physical inspection.<br>* We are not responsible for any data loss during repair.</p>
+                    </div>
+
+                    <div style="display: flex; gap: 10px; margin-top: 15px;">
+                        <button onclick="shareWhatsAppText()" style="flex: 1; background: #e2e8f0; color: #475569; border: 1px solid #cbd5e1; padding: 12px; border-radius: 8px; font-weight: bold; font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 5px;">
+                            <span class="material-symbols-outlined" style="font-size: 18px;">chat</span> Text Msg
+                        </button>
+                        <button onclick="downloadAndSharePDF()" style="flex: 2; background: #dc2626; color: white; border: none; padding: 12px; border-radius: 8px; font-weight: bold; font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 5px; box-shadow: 0 4px 6px rgba(220, 38, 38, 0.3);">
+                            <span class="material-symbols-outlined" style="font-size: 18px;">picture_as_pdf</span> PDF Receipt
+                        </button>
+                    </div>
+                </div>
+            </div>
             
-            <div id="adminGrid" style="display: grid; grid-template-columns: 1fr; gap: 12px; padding-bottom: 40px;">
-                </div>
         </div>
     </div>
 
     <button onclick="openAdminPrompt()" style="position: fixed; bottom: 85px; left: 20px; background: rgba(30, 58, 138, 0.7); color: white; border: none; width: 45px; height: 45px; border-radius: 50%; z-index: 9998; cursor: pointer; font-size: 10px; font-weight: bold; backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">Admin</button>
 
     <script>
+        // VARIABLE DECLARATION
+        var activeBrand = "";
+        var activeModel = "";
+        var activeSimBrand = "";
+        var adminDb = [];
+        var jobsDb = []; // Naya variable jobs ke liye
+        var isAdminOpen = false;
+
         const phoneDb = {
             "Apple": ["iPhone 17 Pro Max", "iPhone 17 Pro", "iPhone 17", "iPhone 16 Pro Max", "iPhone 16 Pro", "iPhone 15 Series", "iPhone 14 Series", "iPhone 13 Series"],
             "Samsung": ["Galaxy S26 Ultra", "Galaxy S26", "Galaxy S25 Ultra", "Galaxy S24 Ultra", "Galaxy Z Fold 7", "Galaxy Z Flip 7", "Galaxy A56 5G", "Galaxy A55"],
@@ -506,10 +536,6 @@
             "Samsung": "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?q=80&w=400&auto=format&fit=crop",
             "Default": "https://images.unsplash.com/photo-1580910051074-3eb694886505?q=80&w=400&auto=format&fit=crop"
         };
-
-        let activeBrand = "";
-        let activeModel = "";
-        let activeSimBrand = "";
 
         function showPage(pageId) {
             document.querySelectorAll('.page-view').forEach(p => p.classList.remove('active'));
@@ -589,20 +615,24 @@
             document.getElementById(modalId).classList.add('hidden');
         }
 
-        document.getElementById('bookingForm').addEventListener('submit', function(e){
-            e.preventDefault();
-            let name = document.getElementById('custName').value;
-            let issue = document.getElementById('issueInput').value;
-            let date = document.getElementById('dateInput').value;
-            let finalModel = (activeModel === "Manual") ? document.getElementById('manualModelInput').value : activeModel;
+        document.addEventListener("DOMContentLoaded", function() {
+            let bookingForm = document.getElementById('bookingForm');
+            if(bookingForm) {
+                bookingForm.addEventListener('submit', function(e){
+                    e.preventDefault();
+                    let name = document.getElementById('custName').value;
+                    let issue = document.getElementById('issueInput').value;
+                    let date = document.getElementById('dateInput').value;
+                    let finalModel = (activeModel === "Manual") ? document.getElementById('manualModelInput').value : activeModel;
 
-            let text = `*New Repair Order (Website)*%0A%0A*Name:* ${name}%0A*Phone:* ${activeBrand} ${finalModel}%0A*Problem:* ${issue}%0A*Date:* ${date}`;
-            window.open(`https://wa.me/919395323010?text=${text}`, '_blank');
-            closeModal('bookingModal');
-            this.reset();
+                    let text = `*New Repair Order (Website)*%0A%0A*Name:* ${name}%0A*Phone:* ${activeBrand} ${finalModel}%0A*Problem:* ${issue}%0A*Date:* ${date}`;
+                    window.open(`https://wa.me/919395323010?text=${text}`, '_blank');
+                    closeModal('bookingModal');
+                    this.reset();
+                });
+            }
         });
 
-        // SIM LOGIC
         function openSimModal(brand) {
             activeSimBrand = brand;
             document.getElementById('selectedSimBrand').innerText = brand;
@@ -649,9 +679,7 @@
         firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
 
-        let adminDb = [];
-        let isAdminOpen = false;
-
+        // 1. Stock Database Listener
         database.ref('chandan_stock_db').on('value', (snapshot) => {
             const data = snapshot.val();
             adminDb = data ? Object.keys(data).map(key => ({...data[key], id: key})) : [];
@@ -662,12 +690,46 @@
             }
         });
 
-        // --- NEW ADMIN LOGIN LOGIC ---
+        // 2. Jobs Database Listener with Auto-Delete (7 Days)
+        database.ref('chandan_receipt_db').on('value', (snapshot) => {
+            const data = snapshot.val();
+            jobsDb = [];
+            
+            let now = Date.now();
+            let sevenDays = 7 * 24 * 60 * 60 * 1000; // 7 din milliseconds mein
+
+            if(data) {
+                Object.keys(data).forEach(key => {
+                    let item = data[key];
+                    // Auto-delete logic check
+                    if(now - item.timestamp > sevenDays) {
+                        database.ref('chandan_receipt_db/' + key).remove(); // Server se hata do
+                    } else {
+                        jobsDb.push({...item, dbKey: key});
+                    }
+                });
+            }
+
+            if(isAdminOpen) {
+                renderJobsUI();
+            }
+        });
+
+        // --- LOGIN LOGIC ---
         function openAdminPrompt() {
             document.getElementById('loginOverlay').classList.remove('hidden');
             document.getElementById('loginError').classList.add('hidden');
-            document.getElementById('adminUser').value = '';
-            document.getElementById('adminPass').value = '';
+            
+            let savedUser = localStorage.getItem("chandanAdminUser");
+            if(savedUser) {
+                document.getElementById('adminUser').value = savedUser;
+                document.getElementById('rememberMe').checked = true;
+            } else {
+                document.getElementById('adminUser').value = '';
+                document.getElementById('rememberMe').checked = false;
+            }
+            
+            document.getElementById('adminPass').value = ''; 
         }
 
         function closeLogin() {
@@ -675,16 +737,31 @@
         }
 
         function verifyAdminLogin() {
-            let u = document.getElementById('adminUser').value;
-            let p = document.getElementById('adminPass').value;
-            
-            if(u === "Chandancommunication" && p === "Mobile@2002") {
-                isAdminOpen = true;
-                closeLogin();
-                document.getElementById('adminPanelOverlay').classList.add('admin-active');
-                adminUpdateUI();
-            } else {
-                document.getElementById('loginError').classList.remove('hidden');
+            try {
+                let rawUser = document.getElementById('adminUser').value || "";
+                let u = rawUser.trim().toLowerCase(); 
+                let p = document.getElementById('adminPass').value || "";
+                p = p.trim();
+                let remember = document.getElementById('rememberMe').checked;
+                
+                if(u === "chandancommunication" && p === "Mobile@2002") {
+                    if(remember) {
+                        localStorage.setItem("chandanAdminUser", rawUser);
+                    } else {
+                        localStorage.removeItem("chandanAdminUser");
+                    }
+                    
+                    isAdminOpen = true;
+                    closeLogin();
+                    document.getElementById('adminPanelOverlay').classList.add('admin-active');
+                    switchAdminTab('stockTab'); 
+                    adminUpdateUI();
+                    renderJobsUI();
+                } else {
+                    document.getElementById('loginError').classList.remove('hidden');
+                }
+            } catch(e) {
+                console.error("Login Error: ", e);
             }
         }
 
@@ -693,21 +770,179 @@
             document.getElementById('adminPanelOverlay').classList.remove('admin-active');
         }
 
+        // --- ADMIN TABS LOGIC (AB 3 HAIN) ---
+        function switchAdminTab(tabId) {
+            document.getElementById('stockTab').style.display = tabId === 'stockTab' ? 'block' : 'none';
+            document.getElementById('jobsTab').style.display = tabId === 'jobsTab' ? 'block' : 'none';
+            document.getElementById('receiptTab').style.display = tabId === 'receiptTab' ? 'block' : 'none';
+            
+            let tabs = ['btnStockTab', 'btnJobsTab', 'btnReceiptTab'];
+            tabs.forEach(btn => {
+                let b = document.getElementById(btn);
+                if(b) {
+                    b.style.background = '#f1f5f9';
+                    b.style.color = '#475569';
+                    b.style.border = '1px solid #cbd5e1';
+                }
+            });
+
+            let activeBtnId = tabId === 'stockTab' ? 'btnStockTab' : (tabId === 'jobsTab' ? 'btnJobsTab' : 'btnReceiptTab');
+            let activeBtn = document.getElementById(activeBtnId);
+            if(activeBtn) {
+                activeBtn.style.background = '#1e3a8a';
+                activeBtn.style.color = 'white';
+                activeBtn.style.border = 'none';
+            }
+        }
+
+        // --- RENDER REPAIR JOBS (NAYA FUNCTION) ---
+        function renderJobsUI() {
+            let grid = document.getElementById('jobsGrid');
+            grid.innerHTML = '';
+
+            if(jobsDb.length === 0) {
+                grid.innerHTML = '<p style="text-align:center; color:#64748b; padding:20px;">Dukan mein koi pending job nahi hai.</p>';
+                return;
+            }
+
+            // Sabse naya job upar dikhega
+            let sortedJobs = [...jobsDb].sort((a, b) => b.timestamp - a.timestamp);
+
+            sortedJobs.forEach(job => {
+                let jobDate = new Date(job.timestamp).toLocaleDateString('en-GB');
+                grid.innerHTML += `
+                    <div style="background: white; padding: 15px; border: 1px solid #e2e8f0; border-radius: 10px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                        <div style="flex: 1;">
+                            <span style="background: #fef08a; color: #854d0e; padding: 3px 8px; border-radius: 4px; font-size: 10px; font-weight: bold;">ID: ${job.id}</span>
+                            <span style="font-size: 10px; color: #64748b; margin-left: 5px; font-weight: bold;">📅 ${jobDate}</span>
+                            <h4 style="margin: 8px 0 4px 0; font-size: 15px; font-weight: 800; color: #1e3a8a;">${job.name} - ${job.model}</h4>
+                            <p style="margin: 0 0 5px 0; font-size: 12px; color: #475569; font-weight: 500;">Issue: ${job.issue}</p>
+                            <p style="margin: 0; font-size: 12px; color: #0f172a;">Bal: <b style="color: #dc2626;">₹${job.balance}</b> (Adv: ₹${job.advance})</p>
+                        </div>
+                        <div style="margin-left: 10px;">
+                            <button onclick="deleteJob('${job.dbKey}')" style="background: #10b981; color: white; border: none; padding: 10px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 12px; box-shadow: 0 2px 4px rgba(16, 185, 129, 0.3);">✔ Done</button>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // Manual Delete jab customer phone le jaye
+        function deleteJob(key) {
+            if(confirm("Kya yeh mobile customer ko de diya gaya hai? Job delete karein?")) {
+                database.ref('chandan_receipt_db/' + key).remove();
+            }
+        }
+
+        // --- RECEIPT GENERATOR LOGIC ---
+        function generateBill() {
+            let name = document.getElementById('rcptName').value || "Customer";
+            let phone = document.getElementById('rcptPhone').value || "N/A";
+            let model = document.getElementById('rcptModel').value || "Unknown Device";
+            let issue = document.getElementById('rcptIssue').value || "Not Specified";
+            let total = document.getElementById('rcptTotal').value || "0";
+            let adv = document.getElementById('rcptAdvance').value || "0";
+            let date = document.getElementById('rcptDate').value || "TBD";
+
+            if(!name || !model) return alert("Please enter Customer Name and Phone Model.");
+
+            let balance = parseInt(total) - parseInt(adv);
+
+            let rId = "CC" + Math.floor(1000 + Math.random() * 9000);
+            let d = new Date();
+            let today = d.getDate() + "/" + (d.getMonth()+1) + "/" + d.getFullYear();
+
+            // DATABASE ME SAVE KARO (Jisse Repair Jobs me dikhe)
+            let receiptData = {
+                id: rId, name: name, phone: phone, model: model, issue: issue,
+                total: total, advance: adv, balance: balance, date: date,
+                timestamp: Date.now() // Isse 7 din ka hisaab hoga
+            };
+            database.ref('chandan_receipt_db').push().set(receiptData);
+
+            // BILL ME DIKHAO
+            document.getElementById('billId').innerText = rId;
+            document.getElementById('billDateNow').innerText = today;
+            document.getElementById('bName').innerText = name;
+            document.getElementById('bPhone').innerText = phone;
+            document.getElementById('bModel').innerText = model;
+            document.getElementById('bIssue').innerText = issue;
+            document.getElementById('bDelDate').innerText = date;
+            document.getElementById('bTotal').innerText = total;
+            document.getElementById('bAdvance').innerText = adv;
+            document.getElementById('bBalance').innerText = balance;
+
+            document.getElementById('finalBillBox').style.display = 'block';
+            
+            // Form khali kar do
+            ['rcptName','rcptPhone','rcptModel','rcptIssue','rcptTotal','rcptAdvance','rcptDate'].forEach(id => document.getElementById(id).value = '');
+        }
+
+        function shareWhatsAppText() {
+            let phone = document.getElementById('bPhone').innerText;
+            if(phone === "N/A" || !phone) return alert("WhatsApp number maujood nahi hai!");
+            
+            let name = document.getElementById('bName').innerText;
+            let model = document.getElementById('bModel').innerText;
+            let issue = document.getElementById('bIssue').innerText;
+            let total = document.getElementById('bTotal').innerText;
+            let adv = document.getElementById('bAdvance').innerText;
+            let bal = document.getElementById('bBalance').innerText;
+            let dDate = document.getElementById('bDelDate').innerText;
+            let id = document.getElementById('billId').innerText;
+
+            let msg = `*CHANDAN COMMUNICATION* 🛠️%0A-----------------------------------%0A*Job Card ID:* ${id}%0A*Customer:* ${name}%0A*Device:* ${model}%0A*Issue:* ${issue}%0A-----------------------------------%0A*Est. Cost:* ₹${total}%0A*Advance Paid:* ₹${adv}%0A*Balance Due:* ₹${bal}%0A-----------------------------------%0A*Expected Delivery:* ${dDate}%0A%0A_Thank you for trusting us!_%0A📍 Ishan Market, PWD Colony, Paltan Bazaar, Guwahati%0A📞 9395323010`;
+
+            if(phone.length === 10) phone = "91" + phone;
+            window.open(`https://wa.me/${phone}?text=${msg}`, '_blank');
+        }
+
+        function downloadAndSharePDF() {
+            let name = document.getElementById('bName').innerText;
+            let element = document.getElementById('captureReceipt');
+            let phone = document.getElementById('bPhone').innerText;
+            
+            if(phone === "N/A" || !phone) return alert("WhatsApp number maujood nahi hai!");
+
+            let opt = {
+              margin:       0.2,
+              filename:     'Chandan_Receipt_' + name.replace(/ /g, "_") + '.pdf',
+              image:        { type: 'jpeg', quality: 0.98 },
+              html2canvas:  { scale: 2 },
+              jsPDF:        { unit: 'in', format: 'a5', orientation: 'portrait' }
+            };
+
+            html2pdf().set(opt).from(element).save().then(() => {
+                if(phone.length === 10) phone = "91" + phone;
+                let msg = `*CHANDAN COMMUNICATION*%0AHello ${name}, aapke repair ki receipt ban gayi hai. Niche bheja gaya PDF check karein. 👇`;
+                
+                setTimeout(() => {
+                    if(confirm("✅ PDF Download ho gaya hai!\n\nAb 'OK' dabaiye jisse WhatsApp khul jayega, phir wahan yeh PDF attach (📎) karke bhej dijiye.")) {
+                        window.open(`https://wa.me/${phone}?text=${msg}`, '_blank');
+                    }
+                }, 1500);
+            });
+        }
+
+        // --- STOCK MANAGER LOGIC ---
         function adminSaveItem() {
-            let name = document.getElementById('adminPartName').value;
+            let boxNo = document.getElementById('adminBoxNo').value;
+            let brand = document.getElementById('adminPartBrand').value;
             let model = document.getElementById('adminPartModel').value;
             let cat = document.getElementById('adminPartCat').value;
             let buy = parseFloat(document.getElementById('adminPartBuy').value) || 0;
             let qty = parseInt(document.getElementById('adminPartQty').value) || 0;
 
-            if(!name || !model) return alert("Bhai, Item Name aur Model likhna zaroori hai!");
+            if(!boxNo || !model) return alert("Bhai, Box No aur Supported Models likhna zaroori hai!");
             
             document.getElementById('syncStatus').innerText = "⏳ Saving to Cloud...";
             
-            let newItem = { name: name, model: model, cat: cat, buy: buy, qty: qty };
+            let newItem = { box: boxNo, brand: brand, model: model, cat: cat, buy: buy, qty: qty };
             database.ref('chandan_stock_db').push().set(newItem);
             
-            ['adminPartName','adminPartModel','adminPartBuy','adminPartQty'].forEach(id => document.getElementById(id).value = '');
+            ['adminBoxNo','adminPartModel','adminPartBuy','adminPartQty'].forEach(id => document.getElementById(id).value = '');
+            document.getElementById('adminPartBrand').selectedIndex = 0;
+            document.getElementById('adminPartCat').selectedIndex = 0;
         }
 
         function adminUpdateQty(id, chg) {
@@ -739,15 +974,20 @@
                 
                 let isLow = item.qty <= 2 ? 'low-stock-alert' : '';
                 
+                let displayBox = item.box || item.name || 'N/A';
+                let displayBrand = item.brand || 'Universal';
+                
                 grid.innerHTML += `
                     <div class="${isLow}" style="display: flex; justify-content: space-between; align-items: center; padding: 15px; border: 1px solid #e2e8f0; border-radius: 10px; background: white;">
-                        <div style="flex: 1;">
+                        <div style="flex: 1; padding-right: 10px;">
                             <span style="background: #dbeafe; color: #1d4ed8; padding: 3px 8px; border-radius: 4px; font-size: 10px; font-weight: bold; text-transform: uppercase;">${item.cat}</span>
-                            <h4 style="margin: 6px 0 2px 0; font-size: 16px; font-weight: 800; color: #111;">${item.model}</h4>
-                            <p style="margin: 0; font-size: 12px; color: #64748b;">${item.name} | Buy: <b>₹${item.buy}</b></p>
+                            <span style="background: #fef08a; color: #854d0e; padding: 3px 8px; border-radius: 4px; font-size: 10px; font-weight: bold; margin-left: 5px;">BOX: ${displayBox}</span>
+                            <span style="background: #f3e8ff; color: #7e22ce; padding: 3px 8px; border-radius: 4px; font-size: 10px; font-weight: bold; margin-left: 5px;">📱 ${displayBrand}</span>
+                            <h4 style="margin: 8px 0 4px 0; font-size: 14px; font-weight: 800; color: #111; line-height: 1.3;">${item.model}</h4>
+                            <p style="margin: 0; font-size: 12px; color: #64748b;">Buy: <b>₹${item.buy}</b></p>
                         </div>
-                        <div style="text-align: right;">
-                            <div style="font-size: 24px; font-weight: 900; color: #0f172a; margin-bottom: 6px;">${item.qty} Pcs</div>
+                        <div style="text-align: right; min-width: 80px;">
+                            <div style="font-size: 26px; font-weight: 900; color: #0f172a; margin-bottom: 6px;">${item.qty}</div>
                             <div style="display: flex; gap: 6px; justify-content: flex-end;">
                                 <button onclick="adminUpdateQty('${item.id}', 1)" style="background: #22c55e; color: white; border: none; border-radius: 6px; width: 32px; height: 32px; font-weight: bold; font-size: 16px; cursor: pointer;">+</button>
                                 <button onclick="adminUpdateQty('${item.id}', -1)" style="background: #f97316; color: white; border: none; border-radius: 6px; width: 32px; height: 32px; font-weight: bold; font-size: 16px; cursor: pointer;">-</button>
