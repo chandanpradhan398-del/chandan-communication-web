@@ -12,16 +12,15 @@
     
     <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-database-compat.js"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     fontFamily: { sans: ['Poppins', 'sans-serif'] },
-                    colors: {
-                        brand: '#1e3a8a', 
-                        accent: '#f97316' 
-                    }
+                    colors: { brand: '#1e3a8a', accent: '#f97316' }
                 }
             }
         }
@@ -287,7 +286,7 @@
             </div>
 
             <div id="modelsGridContainer" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            </div>
+                </div>
         </div>
 
     </main>
@@ -311,8 +310,116 @@
         </button>
     </nav>
 
-    <div id="loginOverlay" class="hidden fixed inset-0 z-[99999] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
-        <div class="bg-white w-full max-w-sm rounded-3xl p-6 shadow-2xl animate-[fadeIn_0.3s_ease-out]">
+    <button onclick="openAdminPrompt()" style="position: fixed; bottom: 85px; left: 20px; background: rgba(30, 58, 138, 0.7); color: white; border: none; width: 45px; height: 45px; border-radius: 50%; z-[9999]; cursor: pointer; font-size: 10px; font-weight: bold; backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">Admin</button>
+
+    <div id="bookingModal" class="hidden fixed inset-0 z-[999999] bg-black/70 backdrop-blur-sm" style="display: none;">
+        <div class="absolute bottom-0 md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 w-full max-w-lg bg-white rounded-t-3xl md:rounded-3xl p-6 shadow-2xl max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-2xl font-bold text-brand">Book Repair</h3>
+                <button onclick="closeModal('bookingModal')" class="bg-slate-100 p-2 rounded-full hover:bg-red-100 hover:text-red-500 transition">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            
+            <div class="bg-blue-50 border border-blue-100 p-3 rounded-xl mb-4 flex items-center gap-3">
+                <span class="material-symbols-outlined text-blue-500 text-3xl">build_circle</span>
+                <div>
+                    <p class="text-[10px] text-blue-600 font-bold uppercase">Device to Repair</p>
+                    <p id="modalDeviceText" class="font-bold text-slate-800 text-sm">Brand - Model</p>
+                </div>
+            </div>
+
+            <form id="bookingForm" class="space-y-3">
+                <div id="manualModelContainer" class="hidden bg-slate-100 p-3 rounded-xl border border-slate-300">
+                    <label class="block text-xs font-bold text-brand mb-1">Enter Your Phone Model <span class="text-red-500">*</span></label>
+                    <input type="text" id="manualModelInput" class="w-full bg-white border border-slate-300 rounded-lg p-2 text-sm focus:border-brand focus:outline-none" placeholder="E.g. Galaxy M12, iPhone 7 Plus...">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-500 mb-1">Your Name</label>
+                    <input type="text" id="custName" required class="w-full bg-slate-50 border border-slate-200 rounded-lg p-3 text-sm focus:border-brand focus:outline-none" placeholder="Enter full name">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-500 mb-1">What's the issue?</label>
+                    <textarea id="issueInput" required rows="2" class="w-full bg-slate-50 border border-slate-200 rounded-lg p-3 text-sm focus:border-brand focus:outline-none" placeholder="E.g. Display broken, Battery fast drain..."></textarea>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-500 mb-1">Expected Visit Date</label>
+                    <input type="date" id="dateInput" required class="w-full bg-slate-50 border border-slate-200 rounded-lg p-3 text-sm focus:border-brand focus:outline-none">
+                </div>
+                <button type="submit" class="w-full bg-brand text-white font-bold rounded-xl py-4 mt-2 shadow-lg hover:bg-blue-900 active:scale-95 transition-transform flex justify-center items-center gap-2">
+                    <span class="material-symbols-outlined">send</span> Send Request to Shop
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div id="simModal" class="hidden fixed inset-0 z-[999999] bg-black/70 backdrop-blur-sm" style="display: none;">
+        <div class="absolute bottom-0 md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 w-full max-w-md bg-white rounded-t-3xl md:rounded-3xl p-6 shadow-2xl">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold text-brand flex items-center gap-2">
+                    <span class="material-symbols-outlined text-3xl">sim_card</span> New Connection
+                </h3>
+                <button onclick="closeModal('simModal')" class="bg-slate-100 p-2 rounded-full hover:bg-red-100 hover:text-red-500 transition">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            
+            <p class="text-center font-bold text-lg mb-4 text-slate-800">You selected: <span id="selectedSimBrand" class="text-brand">Jio</span></p>
+
+            <label class="block text-xs font-bold text-slate-500 mb-2 uppercase tracking-wider">Select Network Speed</label>
+            <div class="grid grid-cols-2 gap-3 mb-5">
+                <label class="cursor-pointer">
+                    <input type="radio" name="simNet" value="4G" class="peer sr-only" checked onchange="updateSimAction()">
+                    <div class="text-center p-3 rounded-xl border-2 border-slate-200 peer-checked:bg-blue-50 peer-checked:border-brand peer-checked:text-brand font-bold transition">4G Network</div>
+                </label>
+                <label class="cursor-pointer">
+                    <input type="radio" name="simNet" value="5G" class="peer sr-only" onchange="updateSimAction()">
+                    <div class="text-center p-3 rounded-xl border-2 border-slate-200 peer-checked:bg-blue-50 peer-checked:border-brand peer-checked:text-brand font-bold transition">5G Ultra Fast</div>
+                </label>
+            </div>
+
+            <label class="block text-xs font-bold text-slate-500 mb-2 uppercase tracking-wider">Select Number Type</label>
+            <div class="grid grid-cols-2 gap-3 mb-6">
+                <label class="cursor-pointer">
+                    <input type="radio" name="simType" value="Normal" class="peer sr-only" checked onchange="updateSimAction()">
+                    <div class="text-center p-3 rounded-xl border-2 border-slate-200 peer-checked:bg-orange-50 peer-checked:border-accent peer-checked:text-accent font-bold transition">Regular SIM</div>
+                </label>
+                <label class="cursor-pointer relative">
+                    <input type="radio" name="simType" value="VIP" class="peer sr-only" onchange="updateSimAction()">
+                    <div class="text-center p-3 rounded-xl border-2 border-slate-200 peer-checked:bg-orange-50 peer-checked:border-accent peer-checked:text-accent font-bold transition">VIP / Fancy</div>
+                </label>
+            </div>
+
+            <button id="simActionButton" onclick="executeSimAction()" class="w-full bg-brand text-white font-bold rounded-xl py-4 shadow-lg hover:bg-blue-900 active:scale-95 transition-transform flex justify-center items-center gap-2 text-lg">
+                <span class="material-symbols-outlined">storefront</span> Visit Store to Buy
+            </button>
+        </div>
+    </div>
+
+    <div id="visitStoreModal" class="hidden fixed inset-0 z-[999999] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4" style="display: none;">
+        <div class="bg-white w-full max-w-sm rounded-3xl p-6 shadow-2xl text-center">
+            <div class="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span class="material-symbols-outlined text-4xl">storefront</span>
+            </div>
+            <h3 class="text-2xl font-extrabold text-slate-800 mb-2">Visit Our Shop</h3>
+            <p class="text-sm text-slate-600 mb-6 font-medium">To collect your new SIM card and do the KYC, please visit us at:</p>
+            
+            <div class="bg-slate-50 p-4 rounded-xl text-left border border-slate-200 mb-6">
+                <strong class="text-brand text-lg block mb-1">BHARGAV INN</strong>
+                <p class="text-xs text-slate-600 leading-relaxed">Ishan Market, Assam Trunk Rd,<br>PWD Colony, Paltan Bazaar,<br>Guwahati, Assam 781008</p>
+            </div>
+
+            <div class="flex gap-3">
+                <button onclick="closeModal('visitStoreModal')" class="flex-1 bg-slate-200 text-slate-700 font-bold py-3 rounded-xl hover:bg-slate-300 transition">Close</button>
+                <a href="https://maps.app.goo.gl/VFHKurWGpu3odbA6A" target="_blank" class="flex-1 bg-brand text-white font-bold py-3 rounded-xl hover:bg-blue-900 transition flex items-center justify-center gap-2">
+                    <span class="material-symbols-outlined text-sm">directions</span> Map
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div id="loginOverlay" class="hidden fixed inset-0 z-[999999] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4" style="display: none;">
+        <div class="bg-white w-full max-w-sm rounded-3xl p-6 shadow-2xl">
             <div class="flex justify-between items-center mb-6">
                 <h3 class="text-2xl font-extrabold text-brand flex items-center gap-2">
                     <span class="material-symbols-outlined text-3xl">admin_panel_settings</span> Admin Login
@@ -345,7 +452,7 @@
         </div>
     </div>
 
-    <div id="adminPanelOverlay">
+    <div id="adminPanelOverlay" style="z-index: 9999999;">
         <div style="max-w: 800px; margin: 0 auto; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.2);">
             
             <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f0f0f0; padding-bottom: 15px; margin-bottom: 20px;">
@@ -505,15 +612,12 @@
         </div>
     </div>
 
-    <button onclick="openAdminPrompt()" style="position: fixed; bottom: 85px; left: 20px; background: rgba(30, 58, 138, 0.7); color: white; border: none; width: 45px; height: 45px; border-radius: 50%; z-index: 9998; cursor: pointer; font-size: 10px; font-weight: bold; backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">Admin</button>
-
     <script>
-        // VARIABLE DECLARATION
         var activeBrand = "";
         var activeModel = "";
         var activeSimBrand = "";
         var adminDb = [];
-        var jobsDb = []; // Naya variable jobs ke liye
+        var jobsDb = []; 
         var isAdminOpen = false;
 
         const phoneDb = {
@@ -557,7 +661,7 @@
             container.innerHTML = ''; 
 
             const manualCard = document.createElement('div');
-            manualCard.className = "model-card manual-card bg-brand p-3 rounded-2xl shadow-md border border-brand cursor-pointer hover:bg-blue-900 transition flex flex-col items-center justify-center text-center text-white";
+            manualCard.className = "model-card manual-card bg-brand p-3 rounded-2xl shadow-md border border-brand cursor-pointer hover:bg-blue-900 transition flex flex-col items-center justify-center text-center text-white active:scale-95";
             manualCard.innerHTML = `
                 <div class="w-full h-28 mb-3 rounded-xl flex flex-col items-center justify-center bg-white/10">
                     <span class="material-symbols-outlined text-4xl mb-1">keyboard</span>
@@ -565,7 +669,7 @@
                 </div>
                 <span class="text-xs font-bold w-full truncate">Enter Manually</span>
             `;
-            manualCard.onclick = () => openBookingModal("Manual");
+            manualCard.onclick = function() { openBookingModal("Manual"); };
             container.appendChild(manualCard);
 
             const models = phoneDb[brand] || phoneDb["Samsung"]; 
@@ -573,14 +677,14 @@
 
             models.forEach(model => {
                 const card = document.createElement('div');
-                card.className = "model-card bg-white p-3 rounded-2xl shadow-sm border border-slate-100 cursor-pointer hover:border-brand hover:shadow-lg transition flex flex-col items-center justify-center text-center";
+                card.className = "model-card bg-white p-3 rounded-2xl shadow-sm border border-slate-100 cursor-pointer hover:border-brand hover:shadow-lg transition flex flex-col items-center justify-center text-center active:scale-95";
                 card.innerHTML = `
                     <div class="w-full h-28 mb-3 rounded-xl overflow-hidden bg-slate-50 flex items-center justify-center">
                         <img src="${imgUrl}" class="w-full h-full object-cover opacity-90">
                     </div>
                     <span class="text-xs font-bold text-slate-800 leading-snug w-full truncate">${model}</span>
                 `;
-                card.onclick = () => openBookingModal(model);
+                card.onclick = function() { openBookingModal(model); };
                 container.appendChild(card);
             });
 
@@ -601,45 +705,50 @@
             activeModel = model;
             if(model === "Manual") {
                 document.getElementById('modalDeviceText').innerText = activeBrand + " - Custom Model";
-                document.getElementById('manualModelContainer').classList.remove('hidden');
+                document.getElementById('manualModelContainer').style.display = 'block';
                 document.getElementById('manualModelInput').required = true;
             } else {
                 document.getElementById('modalDeviceText').innerText = activeBrand + " " + activeModel;
-                document.getElementById('manualModelContainer').classList.add('hidden');
+                document.getElementById('manualModelContainer').style.display = 'none';
                 document.getElementById('manualModelInput').required = false;
             }
-            document.getElementById('bookingModal').classList.remove('hidden');
+            
+            let modal = document.getElementById('bookingModal');
+            modal.classList.remove('hidden');
+            modal.style.display = 'flex'; // FORCE SHOW
         }
 
         function closeModal(modalId) {
-            document.getElementById(modalId).classList.add('hidden');
+            let modal = document.getElementById(modalId);
+            modal.classList.add('hidden');
+            modal.style.display = 'none'; // FORCE HIDE
         }
 
-        document.addEventListener("DOMContentLoaded", function() {
-            let bookingForm = document.getElementById('bookingForm');
-            if(bookingForm) {
-                bookingForm.addEventListener('submit', function(e){
-                    e.preventDefault();
-                    let name = document.getElementById('custName').value;
-                    let issue = document.getElementById('issueInput').value;
-                    let date = document.getElementById('dateInput').value;
-                    let finalModel = (activeModel === "Manual") ? document.getElementById('manualModelInput').value : activeModel;
+        // FORM SUBMIT DIRECT BINDING
+        document.getElementById('bookingForm').onsubmit = function(e){
+            e.preventDefault();
+            let name = document.getElementById('custName').value;
+            let issue = document.getElementById('issueInput').value;
+            let date = document.getElementById('dateInput').value;
+            let finalModel = (activeModel === "Manual") ? document.getElementById('manualModelInput').value : activeModel;
 
-                    let text = `*New Repair Order (Website)*%0A%0A*Name:* ${name}%0A*Phone:* ${activeBrand} ${finalModel}%0A*Problem:* ${issue}%0A*Date:* ${date}`;
-                    window.open(`https://wa.me/919395323010?text=${text}`, '_blank');
-                    closeModal('bookingModal');
-                    this.reset();
-                });
-            }
-        });
+            let text = `*New Repair Order (Website)*%0A%0A*Name:* ${name}%0A*Phone:* ${activeBrand} ${finalModel}%0A*Problem:* ${issue}%0A*Date:* ${date}`;
+            window.open(`https://wa.me/919395323010?text=${text}`, '_blank');
+            closeModal('bookingModal');
+            this.reset();
+        };
 
+        // SIM LOGIC
         function openSimModal(brand) {
             activeSimBrand = brand;
             document.getElementById('selectedSimBrand').innerText = brand;
             document.querySelector('input[name="simNet"][value="4G"]').checked = true;
             document.querySelector('input[name="simType"][value="Normal"]').checked = true;
             updateSimAction();
-            document.getElementById('simModal').classList.remove('hidden');
+            
+            let modal = document.getElementById('simModal');
+            modal.classList.remove('hidden');
+            modal.style.display = 'flex';
         }
 
         function updateSimAction() {
@@ -661,7 +770,9 @@
                 window.open('https://www.jio.com/selfcare/choice-number/', '_blank');
             } else {
                 closeModal('simModal');
-                document.getElementById('visitStoreModal').classList.remove('hidden');
+                let modal = document.getElementById('visitStoreModal');
+                modal.classList.remove('hidden');
+                modal.style.display = 'flex';
             }
         }
 
@@ -679,7 +790,6 @@
         firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
 
-        // 1. Stock Database Listener
         database.ref('chandan_stock_db').on('value', (snapshot) => {
             const data = snapshot.val();
             adminDb = data ? Object.keys(data).map(key => ({...data[key], id: key})) : [];
@@ -690,34 +800,30 @@
             }
         });
 
-        // 2. Jobs Database Listener with Auto-Delete (7 Days)
         database.ref('chandan_receipt_db').on('value', (snapshot) => {
             const data = snapshot.val();
             jobsDb = [];
-            
             let now = Date.now();
-            let sevenDays = 7 * 24 * 60 * 60 * 1000; // 7 din milliseconds mein
+            let sevenDays = 7 * 24 * 60 * 60 * 1000;
 
             if(data) {
                 Object.keys(data).forEach(key => {
                     let item = data[key];
-                    // Auto-delete logic check
                     if(now - item.timestamp > sevenDays) {
-                        database.ref('chandan_receipt_db/' + key).remove(); // Server se hata do
+                        database.ref('chandan_receipt_db/' + key).remove();
                     } else {
                         jobsDb.push({...item, dbKey: key});
                     }
                 });
             }
-
-            if(isAdminOpen) {
-                renderJobsUI();
-            }
+            if(isAdminOpen) renderJobsUI();
         });
 
-        // --- LOGIN LOGIC ---
+        // --- ADMIN LOGIN LOGIC ---
         function openAdminPrompt() {
-            document.getElementById('loginOverlay').classList.remove('hidden');
+            let modal = document.getElementById('loginOverlay');
+            modal.classList.remove('hidden');
+            modal.style.display = 'flex';
             document.getElementById('loginError').classList.add('hidden');
             
             let savedUser = localStorage.getItem("chandanAdminUser");
@@ -728,12 +834,13 @@
                 document.getElementById('adminUser').value = '';
                 document.getElementById('rememberMe').checked = false;
             }
-            
             document.getElementById('adminPass').value = ''; 
         }
 
         function closeLogin() {
-            document.getElementById('loginOverlay').classList.add('hidden');
+            let modal = document.getElementById('loginOverlay');
+            modal.classList.add('hidden');
+            modal.style.display = 'none';
         }
 
         function verifyAdminLogin() {
@@ -754,6 +861,7 @@
                     isAdminOpen = true;
                     closeLogin();
                     document.getElementById('adminPanelOverlay').classList.add('admin-active');
+                    document.getElementById('adminPanelOverlay').style.display = 'block';
                     switchAdminTab('stockTab'); 
                     adminUpdateUI();
                     renderJobsUI();
@@ -768,9 +876,9 @@
         function closeAdmin() {
             isAdminOpen = false;
             document.getElementById('adminPanelOverlay').classList.remove('admin-active');
+            document.getElementById('adminPanelOverlay').style.display = 'none';
         }
 
-        // --- ADMIN TABS LOGIC (AB 3 HAIN) ---
         function switchAdminTab(tabId) {
             document.getElementById('stockTab').style.display = tabId === 'stockTab' ? 'block' : 'none';
             document.getElementById('jobsTab').style.display = tabId === 'jobsTab' ? 'block' : 'none';
@@ -795,7 +903,6 @@
             }
         }
 
-        // --- RENDER REPAIR JOBS (NAYA FUNCTION) ---
         function renderJobsUI() {
             let grid = document.getElementById('jobsGrid');
             grid.innerHTML = '';
@@ -805,7 +912,6 @@
                 return;
             }
 
-            // Sabse naya job upar dikhega
             let sortedJobs = [...jobsDb].sort((a, b) => b.timestamp - a.timestamp);
 
             sortedJobs.forEach(job => {
@@ -827,14 +933,12 @@
             });
         }
 
-        // Manual Delete jab customer phone le jaye
         function deleteJob(key) {
             if(confirm("Kya yeh mobile customer ko de diya gaya hai? Job delete karein?")) {
                 database.ref('chandan_receipt_db/' + key).remove();
             }
         }
 
-        // --- RECEIPT GENERATOR LOGIC ---
         function generateBill() {
             let name = document.getElementById('rcptName').value || "Customer";
             let phone = document.getElementById('rcptPhone').value || "N/A";
@@ -847,20 +951,17 @@
             if(!name || !model) return alert("Please enter Customer Name and Phone Model.");
 
             let balance = parseInt(total) - parseInt(adv);
-
             let rId = "CC" + Math.floor(1000 + Math.random() * 9000);
             let d = new Date();
             let today = d.getDate() + "/" + (d.getMonth()+1) + "/" + d.getFullYear();
 
-            // DATABASE ME SAVE KARO (Jisse Repair Jobs me dikhe)
             let receiptData = {
                 id: rId, name: name, phone: phone, model: model, issue: issue,
                 total: total, advance: adv, balance: balance, date: date,
-                timestamp: Date.now() // Isse 7 din ka hisaab hoga
+                timestamp: Date.now() 
             };
             database.ref('chandan_receipt_db').push().set(receiptData);
 
-            // BILL ME DIKHAO
             document.getElementById('billId').innerText = rId;
             document.getElementById('billDateNow').innerText = today;
             document.getElementById('bName').innerText = name;
@@ -873,8 +974,6 @@
             document.getElementById('bBalance').innerText = balance;
 
             document.getElementById('finalBillBox').style.display = 'block';
-            
-            // Form khali kar do
             ['rcptName','rcptPhone','rcptModel','rcptIssue','rcptTotal','rcptAdvance','rcptDate'].forEach(id => document.getElementById(id).value = '');
         }
 
